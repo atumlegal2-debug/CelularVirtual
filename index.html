@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteira Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { 
+            background: linear-gradient(135deg, #1a0b2e 0%, #16213e 25%, #0f3460 50%, #533a7d 75%, #7209b7 100%);
+            min-height: 100vh;
+        }
+        .card-shadow { 
+            box-shadow: 0 25px 50px -12px rgba(139, 69, 193, 0.25), 0 0 0 1px rgba(139, 69, 193, 0.05);
+            backdrop-filter: blur(16px);
+        }
+        .magical-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(139, 69, 193, 0.2);
+            backdrop-filter: blur(20px);
+        }
+        .title-font { font-family: 'Cinzel', serif; }
+        .glow-text { text-shadow: 0 0 20px rgba(139, 69, 193, 0.5); }
+        .magical-button {
+            background: linear-gradient(135deg, #8b45c1 0%, #6a1b9a 100%);
+            box-shadow: 0 8px 32px rgba(139, 69, 193, 0.3);
+            transition: all 0.3s ease;
+        }
+        .magical-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(139, 69, 193, 0.4);
+        }
+        .store-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(139, 69, 193, 0.3);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+        .store-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 69, 193, 0.5);
+            box-shadow: 0 20px 40px rgba(139, 69, 193, 0.2);
+        }
+        .product-item {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(139, 69, 193, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .product-item:hover {
+            border-color: rgba(139, 69, 193, 0.4);
+            transform: translateY(-2px);
+        }
+        .mystical-glow {
+            animation: mysticalGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes mysticalGlow {
+            from { box-shadow: 0 0 20px rgba(139, 69, 193, 0.3); }
+            to { box-shadow: 0 0 30px rgba(139, 69, 193, 0.6); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        
+        <!-- Tela Inicial -->
+        <div id="homeScreen" class="text-center">
+            <div class="magical-card rounded-3xl p-8 card-shadow mb-6 mystical-glow">
+                <div class="mb-8">
+                    <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-purple-400 mystical-glow">
+                        <img src="https://sdmntprwestus.oaiusercontent.com/files/00000000-9fa8-6230-ba16-5f9658f7e305/raw?se=2025-08-08T21%3A50%3A09Z&sp=r&sv=2024-08-04&sr=b&scid=773cfb86-c6d6-5beb-87e9-53548d2fab7d&skoid=5c72dd08-68ae-4091-b4e1-40ccec0693ae&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-08T15%3A09%3A06Z&ske=2025-08-09T15%3A09%3A06Z&sks=b&skv=2024-08-04&sig=eWexQPaGmUBh3IsydIinNQ/2kjyIVIu0fLhrDpRyp2Y%3D" alt="Mystical Wallet" class="w-full h-full object-cover">
+                    </div>
+                    <h1 class="title-font text-4xl font-bold text-white mb-3 glow-text">Carteira Mística</h1>
+                    <p class="text-purple-200 text-lg">Portal para o comércio encantado</p>
+                    <div class="flex justify-center mt-4">
+                        <div class="flex space-x-1">
+                            <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                            <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-purple-600 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="showLoginOptions()" class="w-full magical-button text-white py-4 rounded-2xl font-semibold text-lg title-font">
+                    ✨ Entrar no Reino ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Opções de Login -->
+        <div id="loginOptions" class="hidden">
+            <div class="magical-card rounded-3xl p-8 card-shadow">
+                <h2 class="title-font text-2xl font-bold text-white mb-6 text-center glow-text">Como deseja continuar?</h2>
+                
+                <button onclick="showLogin()" class="w-full magical-button text-white py-4 rounded-2xl font-semibold mb-4 title-font">
+                    🔮 Fazer Login
+                </button>
+                
+                <button onclick="showCreateAccount()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-4 rounded-2xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all title-font">
+                    ✨ Criar Conta
+                </button>
+                
+                <button onclick="showHome()" class="w-full mt-4 text-purple-300 py-2 hover:text-white transition-colors">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Criar Conta -->
+        <div id="createAccount" class="hidden">
+            <div class="bg-white rounded-3xl p-8 card-shadow">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Criar Nova Conta</h2>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Nome de Usuário</label>
+                    <input type="text" id="newUsername" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: joaosilva1234">
+                    <p class="text-sm text-gray-500 mt-2">Digite seu nome e sobrenome junto com 4 números</p>
+                </div>
+                
+                <button onclick="createAccount()" class="w-full bg-green-500 text-white py-4 rounded-2xl font-semibold hover:bg-green-600 transition-colors">
+                    Criar Conta
+                </button>
+                
+                <button onclick="showLoginOptions()" class="w-full mt-4 text-gray-500 py-2">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Login -->
+        <div id="loginScreen" class="hidden">
+            <div class="bg-white rounded-3xl p-8 card-shadow">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Fazer Login</h2>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Nome de Usuário</label>
+                    <input type="text" id="loginUsername" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ex: joaosilva1234">
+                    <p class="text-sm text-gray-500 mt-2">Digite seu nome e sobrenome junto com 4 números</p>
+                </div>
+                
+                <button onclick="login()" class="w-full bg-blue-500 text-white py-4 rounded-2xl font-semibold hover:bg-blue-600 transition-colors">
+                    Entrar
+                </button>
+                
+                <button onclick="showLoginOptions()" class="w-full mt-4 text-gray-500 py-2">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Principal -->
+        <div id="mainMenu" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Menu Principal</h2>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="showUserWallet()" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        💳 Carteira
+                    </button>
+                    <button onclick="showCommerce()" class="bg-gradient-to-r from-green-500 to-teal-600 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        🛍️ Comércio
+                    </button>
+                    <button onclick="showLifeStatus()" class="bg-gradient-to-r from-pink-500 to-rose-600 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        ❤️ Vida
+                    </button>
+                    <button onclick="showOrderHistory()" class="bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        📋 Histórico
+                    </button>
+                    <button onclick="showHospital()" class="bg-gradient-to-r from-red-500 to-pink-600 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        🏥 Hospital
+                    </button>
+                    <button onclick="showPregnancy()" class="bg-gradient-to-r from-pink-400 to-purple-500 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        🤱 Gravidez
+                    </button>
+                    <button onclick="showAdoption()" class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-4 rounded-2xl font-semibold hover:shadow-lg transition-all">
+                        👶 Adoção
+                    </button>
+                    <button onclick="logout()" class="bg-gray-500 text-white p-4 rounded-2xl font-semibold hover:bg-gray-600 transition-colors">
+                        🚪 Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carteira do Usuário -->
+        <div id="userWallet" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Minha Carteira</h2>
+                    <button onclick="showBankLogin()" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">
+                        <span class="text-gray-600">👤</span>
+                    </button>
+                </div>
+                
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white mb-6">
+                    <p class="text-blue-100 mb-2">Saldo Disponível</p>
+                    <p class="text-3xl font-bold" id="userBalance">0 CM</p>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Enviar para:</label>
+                    <input type="text" id="sendToUser" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Nome do usuário">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Valor:</label>
+                    <input type="number" id="sendAmount" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0">
+                </div>
+                
+                <button onclick="sendMoney()" class="w-full bg-green-500 text-white py-4 rounded-2xl font-semibold hover:bg-green-600 transition-colors mb-4">
+                    Enviar Dinheiro
+                </button>
+                
+                <button onclick="showMainMenu()" class="w-full text-gray-500 py-2">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Comércio -->
+        <div id="commerce" class="hidden">
+            <div class="magical-card rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="title-font text-3xl font-bold text-white mb-6 text-center glow-text">🏰 Reino do Comércio</h2>
+                
+                <div class="mb-6">
+                    <h3 class="title-font text-xl font-semibold text-purple-200 mb-4">🍕 Tavernas & Iguarias</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <button onclick="showStore('pizzarriba')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🍕</div>
+                            <div class="title-font">Pizzarriba</div>
+                            <div class="text-xs text-purple-200">Pizzas Mágicas</div>
+                        </button>
+                        <button onclick="showStore('sorveteria')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🍦</div>
+                            <div class="title-font">Sorveteria</div>
+                            <div class="text-xs text-purple-200">Gelatos Encantados</div>
+                        </button>
+                        <button onclick="showStore('cafeteria')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">☕</div>
+                            <div class="title-font">Cafeteria</div>
+                            <div class="text-xs text-purple-200">Elixires Quentes</div>
+                        </button>
+                        <button onclick="showStore('restaurante')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🍽️</div>
+                            <div class="title-font">Restaurante</div>
+                            <div class="text-xs text-purple-200">Banquetes Reais</div>
+                        </button>
+                        <button onclick="showStore('bar')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🍺</div>
+                            <div class="title-font">Taverna</div>
+                            <div class="text-xs text-purple-200">Poções & Bebidas</div>
+                        </button>
+                        <button onclick="showStore('campina')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🥛</div>
+                            <div class="title-font">Campina</div>
+                            <div class="text-xs text-purple-200">Laticínios Puros</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="title-font text-xl font-semibold text-purple-200 mb-4">🛒 Mercadores Especiais</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="showStore('farmacia')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">💊</div>
+                            <div class="title-font">Alquimista</div>
+                            <div class="text-xs text-purple-200">Poções de Cura</div>
+                        </button>
+                        <button onclick="showStore('joalheria')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">💎</div>
+                            <div class="title-font">Joalheria</div>
+                            <div class="text-xs text-purple-200">Artefatos Mágicos</div>
+                        </button>
+                        <button onclick="showStore('banco')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🏦</div>
+                            <div class="title-font">Banco</div>
+                            <div class="text-xs text-purple-200">Cofres Encantados</div>
+                        </button>
+                        <button onclick="showStore('sexshop')" class="store-card text-white p-4 rounded-xl font-medium">
+                            <div class="text-2xl mb-2">🔞</div>
+                            <div class="title-font">Loja Íntima</div>
+                            <div class="text-xs text-purple-200">Prazeres Secretos</div>
+                        </button>
+                    </div>
+                </div>
+                
+                <button onclick="showMainMenu()" class="w-full mt-6 text-purple-300 py-2 hover:text-white transition-colors">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Loja Individual -->
+        <div id="storeView" class="hidden">
+            <div class="magical-card rounded-3xl p-6 card-shadow mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="title-font text-2xl font-bold text-white glow-text" id="storeName">Loja</h2>
+                    <button onclick="showStoreLogin()" class="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center hover:from-purple-700 hover:to-pink-700 transition-all mystical-glow">
+                        <span class="text-white text-lg">👤</span>
+                    </button>
+                </div>
+                
+                <div id="storeMenu" class="space-y-4 mb-6 max-h-96 overflow-y-auto">
+                    <!-- Menu items will be populated here -->
+                </div>
+                
+                <div id="cart" class="hidden magical-card rounded-xl p-4 mb-4 border border-purple-400">
+                    <h3 class="title-font font-semibold text-white mb-3 glow-text">🛒 Seu Pedido Encantado:</h3>
+                    <div id="cartItems" class="space-y-2"></div>
+                    <div class="flex justify-between items-center mt-4 pt-4 border-t border-purple-400">
+                        <span class="title-font font-bold text-yellow-400 text-lg">Total: <span id="cartTotal">0 CM</span></span>
+                        <button onclick="checkout()" class="magical-button text-white px-6 py-3 rounded-xl font-semibold title-font">
+                            ✨ Finalizar Pedido
+                        </button>
+                    </div>
+                </div>
+                
+                <button onclick="showCommerce()" class="w-full text-purple-300 py-2 hover:text-white transition-colors">
+                    ← Voltar às Lojas
+                </button>
+            </div>
+        </div>
+
+        <!-- Login da Loja -->
+        <div id="storeLogin" class="hidden">
+            <div class="bg-white rounded-3xl p-8 card-shadow">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Acesso do Estabelecimento</h2>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Usuário</label>
+                    <input type="text" id="storeUsername" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Nome do estabelecimento">
+                </div>
+                
+                <button onclick="storeLogin()" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-semibold hover:bg-orange-600 transition-colors">
+                    Acessar Painel
+                </button>
+                
+                <button onclick="showStore(currentStore)" class="w-full mt-4 text-gray-500 py-2">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Painel do Estabelecimento -->
+        <div id="storePanel" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6" id="storePanelName">Painel da Loja</h2>
+                
+                <div class="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl p-6 text-white mb-6">
+                    <p class="text-orange-100 mb-2">Pedidos Pendentes</p>
+                    <p class="text-3xl font-bold" id="pendingOrdersCount">0</p>
+                </div>
+                
+                <div id="ordersList" class="space-y-4 mb-6">
+                    <!-- Orders will be populated here -->
+                </div>
+                
+                <button onclick="logout()" class="w-full text-red-500 py-2">
+                    Sair
+                </button>
+            </div>
+        </div>
+
+        <!-- Status de Vida -->
+        <div id="lifeStatus" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Status de Vida</h2>
+                
+                <!-- Barras de Status -->
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-gray-700">🍽️ Fome</span>
+                            <span id="hungerPercent" class="text-sm text-gray-600">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="hungerBar" class="bg-green-500 h-3 rounded-full transition-all duration-300" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-gray-700">😊 Humor</span>
+                            <span id="moodText" class="text-sm text-gray-600">Feliz</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="moodBar" class="bg-yellow-500 h-3 rounded-full transition-all duration-300" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-gray-700">🏥 Saúde</span>
+                            <span id="healthText" class="text-sm text-gray-600">Saudável</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="healthBar" class="bg-red-500 h-3 rounded-full transition-all duration-300" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Status do Personagem -->
+                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-2">Como seu personagem está:</h3>
+                    <p id="characterStatus" class="text-gray-700">Seu personagem está se sentindo bem!</p>
+                </div>
+                
+                <!-- Sugestões -->
+                <div id="suggestions" class="bg-blue-50 rounded-2xl p-4 mb-6 hidden">
+                    <h3 class="font-semibold text-blue-800 mb-2">💡 Sugestão:</h3>
+                    <p id="suggestionText" class="text-blue-700"></p>
+                </div>
+                
+                <!-- Bolsa de Itens -->
+                <div class="mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-3">🎒 Sua Bolsa</h3>
+                    <div id="inventory" class="grid grid-cols-2 gap-3">
+                        <!-- Inventory items will be populated here -->
+                    </div>
+                </div>
+                
+                <button onclick="showMainMenu()" class="w-full text-gray-500 py-2">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Hospital -->
+        <div id="hospital" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">🏥 Hospital</h2>
+                    <button onclick="showHospitalLogin()" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">
+                        <span class="text-gray-600">👤</span>
+                    </button>
+                </div>
+                
+                <div class="bg-gradient-to-r from-red-100 to-pink-100 rounded-2xl p-6 mb-6">
+                    <h3 class="font-semibold text-red-800 mb-2">Serviços Médicos</h3>
+                    <p class="text-red-700">Tratamento completo para todas as doenças</p>
+                </div>
+                
+                <div class="space-y-4 mb-6">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">Consulta Médica</h4>
+                        <p class="text-gray-600 mb-3">Diagnóstico e tratamento geral</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-green-600">50 CM</span>
+                            <button onclick="requestTreatment('consulta')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                                Solicitar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">Tratamento Completo</h4>
+                        <p class="text-gray-600 mb-3">Cura todas as doenças</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-green-600">100 CM</span>
+                            <button onclick="requestTreatment('completo')" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                                Solicitar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="showMainMenu()" class="w-full text-gray-500 py-2">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Login do Hospital -->
+        <div id="hospitalLogin" class="hidden">
+            <div class="bg-white rounded-3xl p-8 card-shadow">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Acesso Médico</h2>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Usuário</label>
+                    <input type="text" id="hospitalUsername" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="hospital">
+                </div>
+                
+                <button onclick="hospitalLogin()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-semibold hover:bg-red-600 transition-colors">
+                    Acessar Sistema
+                </button>
+                
+                <button onclick="showHospital()" class="w-full mt-4 text-gray-500 py-2">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Painel do Hospital -->
+        <div id="hospitalPanel" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Painel Médico</h2>
+                
+                <div class="bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl p-6 text-white mb-6">
+                    <p class="text-red-100 mb-2">Pacientes Aguardando</p>
+                    <p class="text-3xl font-bold" id="waitingPatientsCount">0</p>
+                </div>
+                
+                <div id="patientsList" class="space-y-4 mb-6">
+                    <!-- Patients will be populated here -->
+                </div>
+                
+                <button onclick="logout()" class="w-full text-red-500 py-2">
+                    Sair
+                </button>
+            </div>
+        </div>
+
+        <!-- Histórico de Pedidos -->
+        <div id="orderHistory" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Histórico de Pedidos</h2>
+                
+                <div id="historyList" class="space-y-4 mb-6">
+                    <!-- History will be populated here -->
+                </div>
+                
+                <button onclick="showMainMenu()" class="w-full text-gray-500 py-2">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Sistema de Gravidez -->
+        <div id="pregnancy" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">🤱 Sistema de Gravidez</h2>
+                
+                <div id="pregnancyStatus" class="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-6 mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-2">Status Atual:</h3>
+                    <p id="pregnancyStatusText" class="text-gray-700">Não grávida</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="font-semibold text-gray-800 mb-4">Descobrir Gravidez - Selecione o período:</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="setPregnancy(1)" class="bg-pink-200 text-pink-800 p-3 rounded-xl font-medium hover:bg-pink-300 transition-colors">
+                            1 Semana
+                        </button>
+                        <button onclick="setPregnancy(4)" class="bg-pink-300 text-pink-800 p-3 rounded-xl font-medium hover:bg-pink-400 transition-colors">
+                            1 Mês
+                        </button>
+                        <button onclick="setPregnancy(8)" class="bg-pink-400 text-pink-800 p-3 rounded-xl font-medium hover:bg-pink-500 transition-colors">
+                            2 Meses
+                        </button>
+                        <button onclick="setPregnancy(12)" class="bg-pink-500 text-white p-3 rounded-xl font-medium hover:bg-pink-600 transition-colors">
+                            3 Meses
+                        </button>
+                        <button onclick="setPregnancy(16)" class="bg-purple-400 text-white p-3 rounded-xl font-medium hover:bg-purple-500 transition-colors">
+                            4 Meses
+                        </button>
+                        <button onclick="setPregnancy(20)" class="bg-purple-500 text-white p-3 rounded-xl font-medium hover:bg-purple-600 transition-colors">
+                            5 Meses
+                        </button>
+                        <button onclick="setPregnancy(24)" class="bg-purple-600 text-white p-3 rounded-xl font-medium hover:bg-purple-700 transition-colors">
+                            6 Meses
+                        </button>
+                        <button onclick="setPregnancy(28)" class="bg-purple-700 text-white p-3 rounded-xl font-medium hover:bg-purple-800 transition-colors">
+                            7 Meses
+                        </button>
+                        <button onclick="setPregnancy(32)" class="bg-red-400 text-white p-3 rounded-xl font-medium hover:bg-red-500 transition-colors">
+                            8 Meses
+                        </button>
+                        <button onclick="setPregnancy(36)" class="bg-red-500 text-white p-3 rounded-xl font-medium hover:bg-red-600 transition-colors">
+                            9 Meses
+                        </button>
+                    </div>
+                </div>
+                
+                <button onclick="showMainMenu()" class="w-full text-gray-500 py-2">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Sistema de Adoção -->
+        <div id="adoption" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">👶 Sistema de Adoção</h2>
+                    <button onclick="showAdoptionLogin()" class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors">
+                        <span class="text-gray-600">👤</span>
+                    </button>
+                </div>
+                
+                <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 mb-6">
+                    <h3 class="font-semibold text-orange-800 mb-2">Adoção de Crianças</h3>
+                    <p class="text-orange-700">Escolha o gênero da criança que deseja adotar</p>
+                </div>
+                
+                <div class="space-y-4 mb-6">
+                    <button onclick="requestAdoption('menino')" class="w-full bg-blue-500 text-white p-4 rounded-xl font-semibold hover:bg-blue-600 transition-colors">
+                        👦 Adotar Menino
+                    </button>
+                    <button onclick="requestAdoption('menina')" class="w-full bg-pink-500 text-white p-4 rounded-xl font-semibold hover:bg-pink-600 transition-colors">
+                        👧 Adotar Menina
+                    </button>
+                </div>
+                
+                <button onclick="showMainMenu()" class="w-full text-gray-500 py-2">
+                    ← Voltar ao Menu
+                </button>
+            </div>
+        </div>
+
+        <!-- Login da Adoção -->
+        <div id="adoptionLogin" class="hidden">
+            <div class="bg-white rounded-3xl p-8 card-shadow">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Acesso da Adoção</h2>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Usuário</label>
+                    <input type="text" id="adoptionUsername" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="adocao">
+                </div>
+                
+                <button onclick="adoptionLogin()" class="w-full bg-orange-500 text-white py-4 rounded-2xl font-semibold hover:bg-orange-600 transition-colors">
+                    Acessar Sistema
+                </button>
+                
+                <button onclick="showAdoption()" class="w-full mt-4 text-gray-500 py-2">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Painel da Adoção -->
+        <div id="adoptionPanel" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Painel da Adoção</h2>
+                
+                <div class="bg-gradient-to-r from-orange-500 to-yellow-600 rounded-2xl p-6 text-white mb-6">
+                    <p class="text-orange-100 mb-2">Solicitações Pendentes</p>
+                    <p class="text-3xl font-bold" id="adoptionRequestsCount">0</p>
+                </div>
+                
+                <div id="adoptionRequestsList" class="space-y-4 mb-6">
+                    <!-- Adoption requests will be populated here -->
+                </div>
+                
+                <button onclick="logout()" class="w-full text-red-500 py-2">
+                    Sair
+                </button>
+            </div>
+        </div>
+
+        <!-- Login do Banco -->
+        <div id="bankLogin" class="hidden">
+            <div class="bg-white rounded-3xl p-8 card-shadow">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Acesso Bancário</h2>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Usuário do Banco</label>
+                    <input type="text" id="bankUsername" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="banco3435">
+                </div>
+                
+                <button onclick="bankLogin()" class="w-full bg-purple-500 text-white py-4 rounded-2xl font-semibold hover:bg-purple-600 transition-colors">
+                    Acessar Sistema Bancário
+                </button>
+                
+                <button onclick="showUserWallet()" class="w-full mt-4 text-gray-500 py-2">
+                    ← Voltar
+                </button>
+            </div>
+        </div>
+
+        <!-- Interface do Banco -->
+        <div id="bankInterface" class="hidden">
+            <div class="bg-white rounded-3xl p-6 card-shadow mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Sistema Bancário</h2>
+                
+                <div class="bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl p-6 text-white mb-6">
+                    <p class="text-purple-100 mb-2">Reserva do Banco</p>
+                    <p class="text-3xl font-bold" id="bankBalance">1,000,000,000 CM</p>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Enviar para usuário:</label>
+                    <input type="text" id="bankSendToUser" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Nome do usuário (sem números)">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-medium mb-2">Valor:</label>
+                    <input type="number" id="bankSendAmount" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="0">
+                </div>
+                
+                <button onclick="bankSendMoney()" class="w-full bg-purple-500 text-white py-4 rounded-2xl font-semibold hover:bg-purple-600 transition-colors">
+                    Transferir do Banco
+                </button>
+                
+                <button onclick="logout()" class="w-full mt-4 text-red-500 py-2">
+                    Sair
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados salvos localmente
+        let users = JSON.parse(localStorage.getItem('walletUsers') || '{}');
+        let currentUser = null;
+        let bankReserve = parseInt(localStorage.getItem('bankReserve') || '1000000000');
+
+        // Inicializar conta do banco se não existir
+        if (!users['banco3435']) {
+            users['banco3435'] = { balance: 0 };
+            saveData();
+        }
+
+        function saveData() {
+            localStorage.setItem('walletUsers', JSON.stringify(users));
+            localStorage.setItem('bankReserve', bankReserve.toString());
+        }
+
+        function showHome() {
+            hideAllScreens();
+            document.getElementById('homeScreen').classList.remove('hidden');
+        }
+
+        function showLoginOptions() {
+            hideAllScreens();
+            document.getElementById('loginOptions').classList.remove('hidden');
+        }
+
+        function showCreateAccount() {
+            hideAllScreens();
+            document.getElementById('createAccount').classList.remove('hidden');
+        }
+
+        function showLogin() {
+            hideAllScreens();
+            document.getElementById('loginScreen').classList.remove('hidden');
+        }
+
+        function showMainMenu() {
+            hideAllScreens();
+            document.getElementById('mainMenu').classList.remove('hidden');
+        }
+
+        function showUserWallet() {
+            hideAllScreens();
+            document.getElementById('userWallet').classList.remove('hidden');
+            updateUserBalance();
+        }
+
+        function showCommerce() {
+            hideAllScreens();
+            document.getElementById('commerce').classList.remove('hidden');
+        }
+
+        function showOrderHistory() {
+            hideAllScreens();
+            document.getElementById('orderHistory').classList.remove('hidden');
+            updateOrderHistory();
+        }
+
+        function showBankLogin() {
+            hideAllScreens();
+            document.getElementById('bankLogin').classList.remove('hidden');
+        }
+
+        function showBankInterface() {
+            hideAllScreens();
+            document.getElementById('bankInterface').classList.remove('hidden');
+            updateBankBalance();
+        }
+
+        function hideAllScreens() {
+            const screens = ['homeScreen', 'loginOptions', 'createAccount', 'loginScreen', 'mainMenu', 'userWallet', 'bankLogin', 'bankInterface', 'commerce', 'storeView', 'storeLogin', 'storePanel', 'orderHistory', 'lifeStatus', 'hospital', 'hospitalLogin', 'hospitalPanel', 'pregnancy', 'adoption', 'adoptionLogin', 'adoptionPanel'];
+            screens.forEach(screen => {
+                document.getElementById(screen).classList.add('hidden');
+            });
+        }
+
+        function createAccount() {
+            const username = document.getElementById('newUsername').value.trim().toLowerCase();
+
+            if (!username) {
+                alert('Por favor, digite um nome de usuário');
+                return;
+            }
+
+            // Verificar se o formato está correto (nome + sobrenome + 4 dígitos)
+            const usernameRegex = /^[a-zA-Z]+[a-zA-Z]+\d{4}$/;
+            if (!usernameRegex.test(username)) {
+                alert('O nome de usuário deve conter nome e sobrenome junto com exatamente 4 números (ex: joaosilva1234)');
+                return;
+            }
+
+            if (users[username]) {
+                alert('Este nome já está em uso. Tente outros números.');
+                return;
+            }
+
+            users[username] = { balance: 0 };
+            initLifeSystem(username);
+            saveData();
+            
+            alert('Conta criada com sucesso!');
+            currentUser = username;
+            showMainMenu();
+        }
+
+        function login() {
+            const username = document.getElementById('loginUsername').value.trim().toLowerCase();
+
+            if (!username) {
+                alert('Por favor, digite seu nome de usuário');
+                return;
+            }
+
+            if (!users[username]) {
+                alert('Usuário não encontrado');
+                return;
+            }
+
+            currentUser = username;
+            initLifeSystem(username);
+            updateLifeStatus();
+            showMainMenu();
+        }
+
+        function bankLogin() {
+            const username = document.getElementById('bankUsername').value.trim();
+
+            if (username !== 'banco3435') {
+                alert('Usuário bancário inválido');
+                return;
+            }
+
+            if (!users[username]) {
+                alert('Usuário bancário não encontrado');
+                return;
+            }
+
+            currentUser = username;
+            showBankInterface();
+        }
+
+        function sendMoney() {
+            const toUser = document.getElementById('sendToUser').value.trim();
+            const amount = parseInt(document.getElementById('sendAmount').value);
+
+            if (!toUser || !amount || amount <= 0) {
+                alert('Por favor, preencha todos os campos corretamente');
+                return;
+            }
+
+            if (!users[toUser]) {
+                alert('Usuário destinatário não encontrado');
+                return;
+            }
+
+            if (users[currentUser].balance < amount) {
+                alert('Saldo insuficiente');
+                return;
+            }
+
+            users[currentUser].balance -= amount;
+            users[toUser].balance += amount;
+            saveData();
+
+            alert(`${amount} CM enviados para ${toUser} com sucesso!`);
+            updateUserBalance();
+            document.getElementById('sendToUser').value = '';
+            document.getElementById('sendAmount').value = '';
+        }
+
+        function bankSendMoney() {
+            const toUser = document.getElementById('bankSendToUser').value.trim();
+            const amount = parseInt(document.getElementById('bankSendAmount').value);
+
+            if (!toUser || !amount || amount <= 0) {
+                alert('Por favor, preencha todos os campos corretamente');
+                return;
+            }
+
+            if (!users[toUser]) {
+                alert('Usuário destinatário não encontrado');
+                return;
+            }
+
+            if (bankReserve < amount) {
+                alert('Reserva bancária insuficiente');
+                return;
+            }
+
+            bankReserve -= amount;
+            users[toUser].balance += amount;
+            saveData();
+
+            alert(`${amount} CM transferidos do banco para ${toUser} com sucesso!`);
+            updateBankBalance();
+            document.getElementById('bankSendToUser').value = '';
+            document.getElementById('bankSendAmount').value = '';
+        }
+
+        function updateUserBalance() {
+            if (currentUser && users[currentUser]) {
+                document.getElementById('userBalance').textContent = `${users[currentUser].balance.toLocaleString()} CM`;
+            }
+        }
+
+        function updateBankBalance() {
+            document.getElementById('bankBalance').textContent = `${bankReserve.toLocaleString()} CM`;
+        }
+
+        function logout() {
+            currentUser = null;
+            showHome();
+        }
+
+        // Dados das lojas e pedidos
+        let stores = JSON.parse(localStorage.getItem('stores') || '{}');
+        let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        let currentStore = null;
+        let cart = [];
+
+        // Sistema de vida
+        let lifeSystem = JSON.parse(localStorage.getItem('lifeSystem') || '{}');
+        let hospitalRequests = JSON.parse(localStorage.getItem('hospitalRequests') || '[]');
+        
+        // Sistema de gravidez e adoção
+        let pregnancySystem = JSON.parse(localStorage.getItem('pregnancySystem') || '{}');
+        let adoptionRequests = JSON.parse(localStorage.getItem('adoptionRequests') || '[]');
+
+        // Inicializar sistema de vida para usuário
+        function initLifeSystem(username) {
+            if (!lifeSystem[username]) {
+                lifeSystem[username] = {
+                    hunger: 100,
+                    mood: 80,
+                    health: 100,
+                    lastFed: Date.now(),
+                    inventory: [],
+                    diseases: [],
+                    lastDiseaseCheck: Date.now()
+                };
+                saveLifeData();
+            }
+        }
+
+        function saveLifeData() {
+            localStorage.setItem('lifeSystem', JSON.stringify(lifeSystem));
+            localStorage.setItem('hospitalRequests', JSON.stringify(hospitalRequests));
+            localStorage.setItem('pregnancySystem', JSON.stringify(pregnancySystem));
+            localStorage.setItem('adoptionRequests', JSON.stringify(adoptionRequests));
+        }
+
+        // Cardápios das lojas
+        const storeMenus = {
+            pizzarriba: [
+                // Pizzas Salgadas Normais - Pequena (30 CM)
+                { name: 'Clássica Aurora - Pequena', description: 'Mussarela, tomate e manjericão', price: 30 },
+                { name: 'Reino da Calabresa - Pequena', description: 'Calabresa, cebola roxa e azeitonas', price: 30 },
+                { name: 'Quatro Queijos da Corte - Pequena', description: 'Mussarela, gorgonzola, parmesão e provolone', price: 30 },
+                { name: 'Jardim Verde - Pequena', description: 'Brócolis, palmito, milho e orégano', price: 30 },
+                { name: 'Fazenda Encantada - Pequena', description: 'Frango desfiado, catupiry e milho', price: 30 },
+                // Pizzas Salgadas Normais - Média (55 CM)
+                { name: 'Clássica Aurora - Média', description: 'Mussarela, tomate e manjericão', price: 55 },
+                { name: 'Reino da Calabresa - Média', description: 'Calabresa, cebola roxa e azeitonas', price: 55 },
+                { name: 'Quatro Queijos da Corte - Média', description: 'Mussarela, gorgonzola, parmesão e provolone', price: 55 },
+                { name: 'Jardim Verde - Média', description: 'Brócolis, palmito, milho e orégano', price: 55 },
+                { name: 'Fazenda Encantada - Média', description: 'Frango desfiado, catupiry e milho', price: 55 },
+                // Pizzas Salgadas Normais - Grande (80 CM)
+                { name: 'Clássica Aurora - Grande', description: 'Mussarela, tomate e manjericão', price: 80 },
+                { name: 'Reino da Calabresa - Grande', description: 'Calabresa, cebola roxa e azeitonas', price: 80 },
+                { name: 'Quatro Queijos da Corte - Grande', description: 'Mussarela, gorgonzola, parmesão e provolone', price: 80 },
+                { name: 'Jardim Verde - Grande', description: 'Brócolis, palmito, milho e orégano', price: 80 },
+                { name: 'Fazenda Encantada - Grande', description: 'Frango desfiado, catupiry e milho', price: 80 },
+                // Pizzas Salgadas Mágicas - Pequena (30 CM)
+                { name: 'Chama Dragônica - Pequena', description: 'Pepperoni picante com pimenta mágica que aquece a boca por alguns minutos', price: 30 },
+                { name: 'Vento das Colinas - Pequena', description: 'Presunto, queijo, ervas e um encantamento que deixa a pizza sempre quentinha', price: 30 },
+                { name: 'Névoa da Noite - Pequena', description: 'Queijo preto defumado com cogumelos raros que liberam aroma adocicado', price: 30 },
+                { name: 'Fogo do Mago - Pequena', description: 'Queijo derretido com especiarias que dão leve brilho avermelhado na massa', price: 30 },
+                { name: 'Ateez Arriba - Pequena', description: 'Carne temperada com toque mexicano, molho picante mágico que aumenta levemente a energia e a coragem de quem come', price: 30 },
+                // Pizzas Salgadas Mágicas - Média (55 CM)
+                { name: 'Chama Dragônica - Média', description: 'Pepperoni picante com pimenta mágica que aquece a boca por alguns minutos', price: 55 },
+                { name: 'Vento das Colinas - Média', description: 'Presunto, queijo, ervas e um encantamento que deixa a pizza sempre quentinha', price: 55 },
+                { name: 'Névoa da Noite - Média', description: 'Queijo preto defumado com cogumelos raros que liberam aroma adocicado', price: 55 },
+                { name: 'Fogo do Mago - Média', description: 'Queijo derretido com especiarias que dão leve brilho avermelhado na massa', price: 55 },
+                { name: 'Ateez Arriba - Média', description: 'Carne temperada com toque mexicano, molho picante mágico que aumenta levemente a energia e a coragem de quem come', price: 55 },
+                // Pizzas Salgadas Mágicas - Grande (80 CM)
+                { name: 'Chama Dragônica - Grande', description: 'Pepperoni picante com pimenta mágica que aquece a boca por alguns minutos', price: 80 },
+                { name: 'Vento das Colinas - Grande', description: 'Presunto, queijo, ervas e um encantamento que deixa a pizza sempre quentinha', price: 80 },
+                { name: 'Névoa da Noite - Grande', description: 'Queijo preto defumado com cogumelos raros que liberam aroma adocicado', price: 80 },
+                { name: 'Fogo do Mago - Grande', description: 'Queijo derretido com especiarias que dão leve brilho avermelhado na massa', price: 80 },
+                { name: 'Ateez Arriba - Grande', description: 'Carne temperada com toque mexicano, molho picante mágico que aumenta levemente a energia e a coragem de quem come', price: 80 },
+                // Pizzas Doces Normais - Pequena (30 CM)
+                { name: 'Estrela de Chocolate - Pequena', description: 'Chocolate derretido com morango', price: 30 },
+                { name: 'Canela dos Sonhos - Pequena', description: 'Banana, canela e açúcar cristalizado', price: 30 },
+                { name: 'Tentação de Morango - Pequena', description: 'Morangos frescos e chantilly', price: 30 },
+                // Pizzas Doces Normais - Média (55 CM)
+                { name: 'Estrela de Chocolate - Média', description: 'Chocolate derretido com morango', price: 55 },
+                { name: 'Canela dos Sonhos - Média', description: 'Banana, canela e açúcar cristalizado', price: 55 },
+                { name: 'Tentação de Morango - Média', description: 'Morangos frescos e chantilly', price: 55 },
+                // Pizzas Doces Normais - Grande (80 CM)
+                { name: 'Estrela de Chocolate - Grande', description: 'Chocolate derretido com morango', price: 80 },
+                { name: 'Canela dos Sonhos - Grande', description: 'Banana, canela e açúcar cristalizado', price: 80 },
+                { name: 'Tentação de Morango - Grande', description: 'Morangos frescos e chantilly', price: 80 },
+                // Pizzas Doces Mágicas - Pequena (30 CM)
+                { name: 'Aurora Açucarada - Pequena', description: 'Chocolate branco com calda azul mágica que brilha no escuro', price: 30 },
+                { name: 'Luar de Mel - Pequena', description: 'Mel encantado que traz sensação de calma e bem-estar', price: 30 },
+                { name: 'Frutas do Arco-Íris - Pequena', description: 'Frutas variadas que mudam de sabor a cada mordida', price: 30 },
+                // Pizzas Doces Mágicas - Média (55 CM)
+                { name: 'Aurora Açucarada - Média', description: 'Chocolate branco com calda azul mágica que brilha no escuro', price: 55 },
+                { name: 'Luar de Mel - Média', description: 'Mel encantado que traz sensação de calma e bem-estar', price: 55 },
+                { name: 'Frutas do Arco-Íris - Média', description: 'Frutas variadas que mudam de sabor a cada mordida', price: 55 },
+                // Pizzas Doces Mágicas - Grande (80 CM)
+                { name: 'Aurora Açucarada - Grande', description: 'Chocolate branco com calda azul mágica que brilha no escuro', price: 80 },
+                { name: 'Luar de Mel - Grande', description: 'Mel encantado que traz sensação de calma e bem-estar', price: 80 },
+                { name: 'Frutas do Arco-Íris - Grande', description: 'Frutas variadas que mudam de sabor a cada mordida', price: 80 },
+                // Bebidas
+                { name: 'Refrigerante (cola, guaraná, limão)', description: 'Bebidas tradicionais geladas', price: 8 },
+                { name: 'Suco Natural (laranja, maracujá, uva)', description: 'Sucos frescos da fruta', price: 10 },
+                { name: 'Suco Encantado', description: 'Muda de sabor conforme a emoção de quem bebe', price: 15 },
+                { name: 'Refresco do Mago', description: 'Bebida gelada de frutas mistas que deixa um frescor mágico na boca', price: 18 }
+            ],
+            sorveteria: [
+                // Sorvetes Tradicionais
+                { name: 'Baunilha dos Sonhos', description: 'Cremoso sorvete de baunilha que traz memórias doces da infância', price: 15 },
+                { name: 'Chocolate Feiticeiro', description: 'Intenso sabor de chocolate que desperta os sentidos', price: 18 },
+                { name: 'Morango Encantado', description: 'Feito com morangos frescos que dançam no paladar', price: 18 },
+                { name: 'Napolitano', description: 'Três sabores clássicos em perfeita harmonia', price: 20 },
+                { name: 'Creme de Caramelo', description: 'Doce tentação com calda dourada que derrete na boca', price: 20 },
+                // Sorvetes Mágicos
+                { name: 'Menta Explosiva', description: 'Refrescante menta que explode em sensações geladas', price: 25, effect: 'energy' },
+                { name: 'Creme das Nuvens', description: 'Leve como uma nuvem, flutua no céu da boca', price: 30, effect: 'happiness' },
+                { name: 'Frutas do Arco-Íris', description: 'Cada colherada revela um sabor diferente de fruta', price: 32, effect: 'joy' },
+                { name: 'Estelar de Mirtilo', description: 'Sabor celestial que brilha como estrelas no paladar', price: 35, effect: 'magic' },
+                { name: 'Doce do Crepúsculo', description: 'Misterioso sabor que muda conforme a luz do dia', price: 38, effect: 'serenity' },
+                // Milk-Shakes
+                { name: 'Shake Clássico', description: 'Tradicional milk-shake cremoso e refrescante', price: 28 },
+                { name: 'Shake Duplo Sabor', description: 'Dois sabores que se complementam perfeitamente', price: 32 },
+                { name: 'Shake Encantado', description: 'Bebida mágica que muda de cor enquanto você bebe', price: 38, effect: 'wonder' },
+                { name: 'Shake Gélido', description: 'Extremamente gelado, perfeito para dias quentes', price: 40, effect: 'refresh' },
+                { name: 'Shake Supremo', description: 'O mais cremoso e saboroso de todos os shakes', price: 45, effect: 'bliss' },
+                // Açaí
+                { name: 'Açaí Tropical', description: 'Açaí puro com frutas tropicais frescas', price: 30 },
+                { name: 'Açaí Supremo', description: 'Açaí premium com cobertura especial', price: 38 },
+                { name: 'Açaí Energético', description: 'Açaí com guaraná que dá energia extra', price: 45, effect: 'energy' },
+                { name: 'Açaí com Chocolate', description: 'Combinação perfeita de açaí com chocolate cremoso', price: 35 },
+                { name: 'Açaí Encantado', description: 'Açaí mágico que brilha levemente no escuro', price: 42, effect: 'magic' }
+            ],
+            cafeteria: [
+                // Bebidas Quentes Mágicas
+                { name: 'Latte das Nuvens Doces', description: 'Um latte de baunilha com espuma que flutua levemente acima da xícara', price: 40 },
+                { name: 'Chá da Serenidade do Bosque', description: 'Um chá de flores e ervas colhidas em clareiras encantadas', price: 35 },
+                { name: 'Cappuccino de Fogo Manso', description: 'Café com toque de canela e uma leve energia mágica que esquenta as mãos', price: 45 },
+                { name: 'Chocolate Quente da Ternura', description: 'Cremoso, com aroma suave de amoras e pequenos corações na espuma', price: 38 },
+                { name: 'Chá Azul das Estrelas', description: 'Um chá brilhante que muda de tom conforme a luz. Ideal para quem estuda à noite', price: 50 },
+                // Doces Mágicos
+                { name: 'Bolo de Arco-Íris Celestial', description: 'Massa colorida com camadas que dançam no prato. Doce leve e encantador', price: 30 },
+                { name: 'Macaron de Luz e Sombras', description: 'Duas metades: uma clara e uma escura, trazendo equilíbrio ao paladar', price: 18 },
+                { name: 'Croissant do Vento Leve', description: 'Tão macio que parece que derrete com o toque. Perfeito para manhãs calmas', price: 25 },
+                { name: 'Biscoitos de Baunilha Lunar', description: 'Assados com essência da lua cheia, deixam um aroma suave no ar', price: 20 },
+                // Bebidas Frias Mágicas
+                { name: 'Smoothie Elemental - Fogo', description: 'Frutas vermelhas com toque picante', price: 42 },
+                { name: 'Smoothie Elemental - Água', description: 'Frutas azuis com toque refrescante', price: 42 },
+                { name: 'Smoothie Elemental - Terra', description: 'Banana, canela e aveia', price: 42 },
+                { name: 'Smoothie Elemental - Ar', description: 'Pera com hortelã e leve gás', price: 42 },
+                { name: 'Soda Brilhante da Aurora', description: 'Refrigerante mágico com glitter comestível. Refrescante e bonito', price: 33 },
+                { name: 'Leite Gélido do Dragão Azul', description: 'Um leite mágico azul-claro, gelado e levemente doce. Um clássico reconfortante', price: 37 },
+                // Comidinhas Leves
+                { name: 'Torrada do Sol Poente', description: 'Com pasta de frutas encantadas que mudam levemente o sabor ao longo da refeição', price: 28 },
+                { name: 'Panqueca dos Sonhos Doces', description: 'Pequenas panquecas cobertas com pó mágico de açúcar cristalizado', price: 32 },
+                { name: 'Ramen do Consolo Mágico (Mini)', description: 'Uma tigela pequena de ramen apimentado que aquece o coração', price: 50 },
+                // Combo Especial
+                { name: 'Combo Encantado do Dia', description: '1 bebida + 1 doce + 1 surpresa do chef (como um biscoitinho encantado ou mensagem mágica)', price: 70 }
+            ],
+            restaurante: [
+                // Pratos Principais
+                { name: 'Bibimbap Encantado', description: 'Tigela mágica com arroz, vegetais coloridos e molho que brilha suavemente', price: 100, effect: 'harmony' },
+                { name: 'Tteokbokki de Fogo Fátuo', description: 'Bolinhos de arroz em molho picante que aquece a alma', price: 160, effect: 'warmth' },
+                { name: 'Jjajangmyeon Sombrio', description: 'Macarrão negro com molho misterioso que desperta coragem', price: 200, effect: 'courage' },
+                { name: 'Galbi de Dragão Jovem', description: 'Costela grelhada com temperos ancestrais que fortalecem o espírito', price: 280, effect: 'strength' },
+                { name: 'Kimchi do Despertar', description: 'Repolho fermentado que desperta todos os sentidos', price: 100, effect: 'awakening' },
+                // Sopas & Guisados
+                { name: 'Sundubu Celestial', description: 'Sopa de tofu macio que flutua como nuvens no caldo dourado', price: 100, effect: 'comfort' },
+                { name: 'Samgyetang das Quatro Estações', description: 'Sopa de frango com ginseng que muda de sabor conforme a estação', price: 150, effect: 'vitality' },
+                // Acompanhamentos
+                { name: 'Pãezinhos de Ar Leve', description: 'Pães tão leves que parecem flutuar no ar', price: 20 },
+                { name: 'Ovos de Roc Flamejante', description: 'Ovos gigantes temperados com especiarias que aquecem por dentro', price: 150, effect: 'fire' },
+                { name: 'Picles Cintilantes', description: 'Vegetais em conserva que brilham com cristais de sal mágico', price: 50 },
+                // Sobremesas
+                { name: 'Bingsu Estelar', description: 'Raspadinha com frutas que brilham como constelações', price: 100, effect: 'wonder' },
+                { name: 'Hotteok de Brasa Doce', description: 'Panqueca doce que mantém o calor por horas', price: 50, effect: 'sweetness' },
+                // Bebidas
+                { name: 'Chá de Flor Lunar', description: 'Chá delicado que brilha suavemente sob a luz da lua', price: 100, effect: 'serenity' },
+                { name: 'Suco de Fruta Fantasma', description: 'Bebida translúcida com sabor que muda a cada gole', price: 100, effect: 'mystery' },
+                { name: 'Vinho de Cerejeira Noturna', description: 'Vinho suave que traz sonhos coloridos', price: 80, effect: 'dreams' }
+            ],
+            bar: [
+                // Bebidas Não-Alcoólicas
+                { name: 'Refresco de Pêssego do Vale', description: 'Bebida doce e refrescante feita com pêssegos do vale encantado', price: 50 },
+                { name: 'Chá Gélido da Montanha Azul', description: 'Chá gelado com ervas das montanhas que acalma a mente', price: 55, effect: 'calm' },
+                { name: 'Leite Dourado da Manhã', description: 'Leite morno com especiarias que desperta suavemente', price: 50, effect: 'awakening' },
+                // Bebidas Alcoólicas e Fortes
+                { name: 'Soju Brando da Vila', description: 'Destilado suave que aquece o coração sem queimar', price: 80, effect: 'warmth' },
+                { name: 'Makgeolli da Floresta Densa', description: 'Vinho de arroz turvo com sabor terroso da floresta', price: 90, effect: 'earthiness' },
+                { name: 'Licor da Lua Cheia', description: 'Licor prateado que brilha sob a luz lunar', price: 140, effect: 'mysticism' },
+                { name: 'Cerveja do Fogo Selvagem', description: 'Cerveja forte que queima suavemente na garganta', price: 130, effect: 'fire' },
+                { name: 'Uísque do Penhasco Nebuloso', description: 'Uísque envelhecido em barris nas alturas nebulosas', price: 150, effect: 'contemplation' },
+                { name: 'Espírito de Dragão (soju destilado)', description: 'Destilado poderoso que desperta o dragão interior', price: 200, effect: 'power' },
+                { name: 'Sangue de Salamandra', description: 'Bebida vermelha intensa que aquece todo o corpo', price: 180, effect: 'intensity' },
+                // Bebidas Encantadas
+                { name: 'Chá Sussurro de Nuvem', description: 'Chá leve que faz você se sentir nas nuvens', price: 10, effect: 'lightness' },
+                { name: 'Saquê do Vento Preso', description: 'Saquê que liberta a alma como vento livre', price: 20, effect: 'freedom' },
+                { name: 'Licor dos Pulmões Soltos', description: 'Licor que facilita a respiração e relaxa', price: 25, effect: 'relaxation' },
+                { name: 'Soju do Espírito Brando', description: 'Soju suave que acalma o espírito agitado', price: 30, effect: 'peace' },
+                { name: 'Makgeolli da Lua Risonha', description: 'Vinho que traz risos e alegria ao coração', price: 35, effect: 'joy' },
+                { name: 'Água Ardente do Dragão Dourado', description: 'Destilado dourado que desperta coragem ancestral', price: 50, effect: 'courage' },
+                { name: 'Elixir dos Desejos', description: 'Poção mágica que realiza pequenos desejos do coração', price: 150, effect: 'wishes' }
+            ],
+            campina: [
+                { name: 'Leite 1L', description: 'Leite fresco e cremoso direto da fazenda encantada', price: 5 },
+                { name: 'Iogurte', description: 'Iogurte natural com probióticos mágicos que fortalecem', price: 4, effect: 'health' },
+                { name: 'Queijo', description: 'Queijo artesanal curado em cavernas místicas', price: 15, effect: 'satisfaction' },
+                { name: 'Manteiga', description: 'Manteiga dourada feita com leite de vacas felizes', price: 8, effect: 'comfort' }
+            ],
+            farmacia: [
+                // Poções Energéticas e Revigorantes
+                { name: 'Elixir do Despertar Matinal', description: 'Combate o cansaço e dá energia para enfrentar o dia', price: 45 },
+                { name: 'Poção da Força Vital', description: 'Restaura energia física e mental após longas jornadas', price: 60 },
+                { name: 'Tônico do Guerreiro Incansável', description: 'Aumenta resistência e vigor por horas', price: 75 },
+                { name: 'Essência do Raio Dourado', description: 'Como um relâmpago, desperta coragem e garante "magia" por horas', price: 110 },
+                
+                // Poções de Cura e Bem-Estar
+                { name: 'Essência do Calmante Sereno', description: 'Combate enjoo, acalma o estômago e restaura a paz interior', price: 40 },
+                { name: 'Poção de Lótus da Aurora', description: 'Auxilia em náuseas matinais e indisposições da gravidez', price: 55 },
+                { name: 'Pomada do Sábio Curador', description: 'Alivia dores musculares e articulares de guerreiros veteranos', price: 50 },
+                
+                // Itens para Bebês & Cuidados Básicos
+                { name: 'Fraldas Encantadas da Fada Madrinha', description: 'Mantém o bebê seco e protegido contra assaduras mágicas', price: 35 },
+                { name: 'Chupeta do Sono Eterno', description: 'Garante noites tranquilas para pais cansados (e bebês arteiros)', price: 30 },
+                
+                // Itens de Diagnóstico & Utilidades
+                { name: 'Termômetro do Oráculo', description: 'Mede febre e prevê se a gripe vai durar mais do que o esperado', price: 25 },
+                { name: 'Kit de Primeiros Socorros do Clérigo', description: 'Tratamento rápido para pequenos ferimentos antes que virotes e feitiços causem problemas maiores', price: 60 },
+                
+                // Tratamentos Faciais
+                { name: 'Creme da Juventude Eterna', description: 'Suaviza rugas, ilumina a pele e dá aquele brilho imortal', price: 85 },
+                { name: 'Máscara da Lua Cheia', description: 'Regenera a pele durante a noite, deixando-a renovada ao amanhecer', price: 75 },
+                { name: 'Soro do Elfo Dourado', description: 'Uniformiza o tom de pele e hidrata profundamente', price: 90 },
+                
+                // Proteção Solar & Encantamentos
+                { name: 'Protetor Solar "Luz de Sombra"', description: 'Bloqueia até a mais maligna das queimaduras solares — inclusive para vampiros', price: 70 },
+                { name: 'Filtro Solar do Dragão Dourado', description: 'Proteção contra sol, vento e poeira mágica de batalhas', price: 65 },
+                
+                // Hidratação & Revitalização
+                { name: 'Néctar das Sereias', description: 'Hidrata e deixa a pele macia como escamas de sereia ao luar', price: 80 },
+                { name: 'Elixir da Rosa Encantada', description: 'Hidratação intensa com perfume suave e toque de magia', price: 78 },
+                { name: 'Água da Fonte da Vida', description: 'Tônico refrescante que devolve a vitalidade da pele', price: 50 },
+                
+                // Cuidados Especiais
+                { name: 'Esfoliante Estelar', description: 'Remove células mortas e deixa a pele brilhando como constelações', price: 65 },
+                { name: 'Bálsamo do Guardião da Floresta', description: 'Calmante para peles sensíveis, ideal pós-batalha ou após feitiços de fogo', price: 60 },
+                { name: 'Pomada da Fênix', description: 'Restaura áreas ressecadas ou danificadas como se fosse renascimento', price: 70 },
+                
+                // Máscaras de Proteção Sobrenatural
+                { name: 'Máscara do Guardião Celestial', description: 'Protege contra vírus, poeira mágica e respingos de poções perigosas', price: 65 },
+                { name: 'Máscara do Escudo Etéreo', description: 'Cria uma barreira mágica invisível contra doenças e energia negativa', price: 70 },
+                { name: 'Máscara da Névoa Purificadora', description: 'Filtra o ar com essência de ervas sagradas', price: 68 },
+                { name: 'Máscara do Caçador de Pestes', description: 'Inspirada nos antigos doutores da peste, afasta miasmas e más influências', price: 72 },
+                { name: 'Máscara da Luz Divina', description: 'Purifica cada respiração com bênçãos de cura', price: 75 },
+                
+                // Géis de Proteção Mágica para as Mãos
+                { name: 'Gel Purificador do Clérigo', description: 'Remove germes, impurezas e pequenas maldições', price: 35 },
+                { name: 'Gel das Chamas Sagradas', description: 'Limpeza intensa com calor reconfortante, elimina até maldições persistentes', price: 38 },
+                { name: 'Gel Gélido da Neve Ancestral', description: 'Sensação refrescante e esterilização profunda', price: 37 },
+                { name: 'Gel da Essência Floral Encantada', description: 'Limpa e deixa perfume suave que acalma a alma', price: 40 },
+                { name: 'Gel da Mão do Necromante', description: 'Esteriliza com poder das ervas negras, protege contra contaminação e magia corrompida', price: 39 }
+            ],
+            joalheria: [
+                // Anéis de Namoro
+                { name: 'Doce Alvorecer', description: 'Anel delicado que brilha suavemente como o primeiro raio de sol', price: 320, effect: 'romance' },
+                { name: 'Lua do Amor', description: 'Anel prateado que reflete o amor sob a luz lunar', price: 450, effect: 'love' },
+                { name: 'Suspiro Encantado (mágico)', description: 'Anel que sussurra palavras doces ao ouvido do amado', price: 700, effect: 'enchantment' },
+                // Anéis de Noivado
+                { name: 'Flor da Paixão', description: 'Anel com pedra que floresce em cores vibrantes', price: 1250, effect: 'passion' },
+                { name: 'Luz das Estrelas', description: 'Anel que captura a luz das estrelas em sua gema', price: 1600, effect: 'destiny' },
+                { name: 'Laço Inquebrável (mágico)', description: 'Anel que fortalece os laços entre duas almas', price: 2050, effect: 'bond' },
+                // Anéis de Casamento
+                { name: 'Aurora Dourada', description: 'Par de anéis que brilham como o nascer do sol', price: 2400, effect: 'unity' },
+                { name: 'Dois Corações', description: 'Anéis que batem no ritmo do coração do parceiro', price: 3000, effect: 'connection' },
+                { name: 'Promessa Eterna (mágico)', description: 'Anéis que selam promessas para toda a eternidade', price: 4300, effect: 'eternity' }
+            ],
+            banco: [
+                { name: 'Abertura de Conta', description: 'Serviço gratuito para abrir sua conta bancária', price: 0 },
+                { name: 'Cartão de Crédito', description: 'Cartão mágico que facilita suas compras', price: 15, effect: 'convenience' },
+                { name: 'Empréstimo', description: 'Empréstimo com juros encantados e pagamento flexível', price: 50, effect: 'opportunity' },
+                { name: 'Investimento', description: 'Aplicação que multiplica suas moedas magicamente', price: 100, effect: 'prosperity' }
+            ],
+            sexshop: [
+                // Fumos e Poções Exóticos
+                { name: 'Tabaco do "Pau de Fogo"', description: 'Tabaco encantado que aquece o corpo e desperta paixões ardentes', price: 120 },
+                { name: 'Pó do Pinica-Pinica', description: 'Pó mágico que causa formigamento prazeroso por todo o corpo', price: 65 },
+                { name: 'Essência de Dragão (Aroma Afrodisíaco)', description: 'Perfume poderoso que desperta desejos incontroláveis', price: 90 },
+                // Preservativos e Lubrificantes Mágicos
+                { name: 'Camisinha do "Floco de Neve" (3 unidades)', description: 'Preservativos gelados que proporcionam sensação refrescante', price: 90 },
+                { name: 'Camisinha do "Apertou, Virou"', description: 'Se ajusta perfeitamente a qualquer tamanho', price: 50 },
+                { name: 'Lubrificante de Mel de Abelhas Encantadas', description: 'Lubrificante doce que nunca seca e tem sabor delicioso', price: 80 },
+                { name: 'Camisinha do "Sem Escapatória"', description: 'Proteção máxima com textura especial para prazer intenso', price: 150 },
+                // Próteses e Vibradores Mágicos
+                { name: 'Pênis de Dragão (Réplica Realista)', description: 'Réplica anatômica de dragão com aquecimento mágico', price: 300 },
+                { name: 'Vibrador do "Canto da Sereia"', description: 'Vibra no ritmo de canções sedutoras das sereias', price: 200 },
+                { name: 'Algemas do "Presa Voluntária"', description: 'Se abrem apenas quando ambos estão satisfeitos', price: 180 },
+                { name: 'Plug Anal das "Formigas de Fogo Mágicas"', description: 'Causa sensação de formigamento quente e prazeroso', price: 60 },
+                { name: 'Pênis "Tempestade"', description: 'Vibra como trovões e aquece como raios', price: 150 },
+                { name: 'Egg das "Cobras Mágicas" - Cobra do Gelo', description: 'Sensação gelada que percorre todo o corpo', price: 50 },
+                { name: 'Egg das "Cobras Mágicas" - Cobra do Mar', description: 'Movimentos ondulantes como as marés', price: 50 },
+                { name: 'Egg das "Cobras Mágicas" - Cobra do Fogo', description: 'Aquecimento intenso que incendeia os sentidos', price: 50 },
+                // Lingeries e Fantasias Eróticas
+                { name: 'Sutiã do "Toque de Midas"', description: 'Tudo que toca vira ouro... inclusive o prazer', price: 250 },
+                { name: 'Fantasia de Sacerdotisa das Sombras', description: 'Desperta os desejos mais sombrios e proibidos', price: 400 },
+                { name: 'Calcinha do "Desafio"', description: 'Só sai quando o desafio for completado', price: 130 },
+                // Géis e Cremes dos Deuses
+                { name: 'Gel do "Sopro Gelado"', description: 'Refresca e intensifica cada toque', price: 70 },
+                { name: 'Creme de Crescimento Instantâneo', description: 'Aumenta temporariamente o que você mais deseja', price: 160 },
+                // Acessórios BDSM e Fetiches
+                { name: 'Chicote do "Aprendiz de Feiticeiro"', description: 'Cada chicotada ensina uma nova lição de prazer', price: 220 },
+                { name: 'Coleira do "Animal Interior"', description: 'Desperta os instintos mais selvagens', price: 190 },
+                { name: 'Vela do Prazer e Dor', description: 'Cera que esquenta na medida certa entre prazer e dor', price: 110 },
+                // Cosméticos Mágicos
+                { name: 'Batom do "Beijo Hipnótico"', description: 'Quem beijar ficará sob seu encanto por horas', price: 95 },
+                { name: 'Perfume do "Ciúme Incontrolável"', description: 'Desperta ciúmes e possessividade no parceiro', price: 140 },
+                { name: 'Sombra dos "Olhos de Predador"', description: 'Olhar que hipnotiza e seduz qualquer presa', price: 120 },
+                // Pacotes Promocionais
+                { name: 'Kit "Dominação Dragônica"', description: 'Tudo para uma noite de dominação épica', price: 600 },
+                { name: 'Kit "Noite das Ilusões"', description: 'Produtos que criam fantasias e ilusões sensuais', price: 450 },
+                { name: 'Kit "Safadeza Básica"', description: 'O essencial para começar suas aventuras', price: 300 }
+            ]
+        };
+
+        // Inicializar lojas se não existirem
+        Object.keys(storeMenus).forEach(storeName => {
+            if (!stores[storeName]) {
+                stores[storeName] = { balance: 0 };
+            }
+        });
+        saveStoreData();
+
+        function saveStoreData() {
+            localStorage.setItem('stores', JSON.stringify(stores));
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        // Função para gerar imagem SVG baseada no produto
+        function generateProductImage(productName, storeName) {
+            const imageMap = {
+                // Pizzarriba
+                'pizza': `<svg viewBox="0 0 100 100" class="w-16 h-16"><circle cx="50" cy="50" r="40" fill="#D2691E"/><circle cx="35" cy="35" r="6" fill="#FF6347"/><circle cx="65" cy="35" r="6" fill="#228B22"/><circle cx="50" cy="60" r="6" fill="#FFD700"/><circle cx="30" cy="65" r="4" fill="#8B4513"/><circle cx="70" cy="65" r="4" fill="#FF4500"/></svg>`,
+                
+                // Sorveteria
+                'sorvete': `<svg viewBox="0 0 100 100" class="w-16 h-16"><path d="M30 70 L50 90 L70 70" fill="#DEB887"/><ellipse cx="50" cy="60" rx="20" ry="15" fill="#FFB6C1"/><ellipse cx="50" cy="45" rx="18" ry="12" fill="#98FB98"/><ellipse cx="50" cy="32" rx="16" ry="10" fill="#F0E68C"/></svg>`,
+                'shake': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="35" y="30" width="30" height="50" rx="5" fill="#FFF8DC"/><rect x="37" y="32" width="26" height="46" fill="#FFB6C1"/><ellipse cx="50" cy="25" rx="12" ry="8" fill="#FFFACD"/><rect x="48" y="15" width="4" height="15" fill="#8B4513"/></svg>`,
+                'açaí': `<svg viewBox="0 0 100 100" class="w-16 h-16"><ellipse cx="50" cy="60" rx="25" ry="20" fill="#4B0082"/><circle cx="45" cy="50" r="4" fill="#FF69B4"/><circle cx="55" cy="55" r="3" fill="#FFD700"/><circle cx="50" cy="45" r="3" fill="#32CD32"/></svg>`,
+                
+                // Cafeteria
+                'café': `<svg viewBox="0 0 100 100" class="w-16 h-16"><ellipse cx="50" cy="70" rx="15" ry="5" fill="#8B4513"/><rect x="35" y="40" width="30" height="30" rx="5" fill="#FFFACD"/><rect x="37" y="42" width="26" height="26" fill="#8B4513"/><path d="M40 35 Q45 25 50 35 Q55 25 60 35" stroke="#D3D3D3" stroke-width="2" fill="none"/><rect x="65" y="50" width="8" height="15" rx="4" fill="#FFFACD"/></svg>`,
+                'chá': `<svg viewBox="0 0 100 100" class="w-16 h-16"><ellipse cx="50" cy="70" rx="15" ry="5" fill="#228B22"/><rect x="35" y="40" width="30" height="30" rx="5" fill="#FFFACD"/><rect x="37" y="42" width="26" height="26" fill="#90EE90"/><path d="M40 35 Q45 25 50 35 Q55 25 60 35" stroke="#D3D3D3" stroke-width="2" fill="none"/><rect x="65" y="50" width="8" height="15" rx="4" fill="#FFFACD"/></svg>`,
+                'bolo': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="25" y="50" width="50" height="30" rx="5" fill="#DEB887"/><rect x="30" y="40" width="40" height="15" fill="#FFB6C1"/><rect x="35" y="30" width="30" height="15" fill="#98FB98"/><circle cx="50" cy="25" r="3" fill="#FF0000"/></svg>`,
+                
+                // Restaurante
+                'prato': `<svg viewBox="0 0 100 100" class="w-16 h-16"><ellipse cx="50" cy="60" rx="30" ry="8" fill="#F5F5DC"/><ellipse cx="50" cy="55" rx="28" ry="15" fill="#FFFACD"/><circle cx="40" cy="50" r="6" fill="#FF6347"/><circle cx="60" cy="50" r="6" fill="#32CD32"/><rect x="45" y="45" width="10" height="15" fill="#FFD700"/></svg>`,
+                'sopa': `<svg viewBox="0 0 100 100" class="w-16 h-16"><ellipse cx="50" cy="70" rx="25" ry="8" fill="#8B4513"/><ellipse cx="50" cy="60" rx="23" ry="15" fill="#FFA500"/><circle cx="45" cy="55" r="3" fill="#FF6347"/><circle cx="55" cy="55" r="3" fill="#32CD32"/><path d="M35 50 Q40 45 45 50 Q50 45 55 50 Q60 45 65 50" stroke="#FFD700" stroke-width="2" fill="none"/></svg>`,
+                
+                // Bar
+                'bebida': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="40" y="30" width="20" height="50" rx="3" fill="#FFFACD"/><rect x="42" y="35" width="16" height="40" fill="#FFD700"/><ellipse cx="50" cy="25" rx="8" ry="3" fill="#D3D3D3"/><rect x="48" y="15" width="4" height="15" fill="#8B4513"/></svg>`,
+                'cerveja': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="35" y="30" width="25" height="45" rx="5" fill="#FFFACD"/><rect x="37" y="35" width="21" height="35" fill="#FFD700"/><ellipse cx="47.5" cy="25" rx="10" ry="5" fill="#FFFACD"/><rect x="60" y="45" width="8" height="20" rx="4" fill="#FFFACD"/></svg>`,
+                
+                // Campina
+                'leite': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="35" y="20" width="30" height="60" rx="5" fill="#FFFACD"/><rect x="37" y="25" width="26" height="50" fill="#FFFFFF"/><rect x="30" y="15" width="40" height="10" rx="5" fill="#FF0000"/><text x="50" y="35" text-anchor="middle" fill="#FF0000" font-size="8" font-weight="bold">LEITE</text></svg>`,
+                'queijo': `<svg viewBox="0 0 100 100" class="w-16 h-16"><path d="M20 60 L80 60 L70 30 L30 30 Z" fill="#FFD700"/><circle cx="35" cy="45" r="3" fill="#FFFFFF"/><circle cx="50" cy="50" r="4" fill="#FFFFFF"/><circle cx="65" cy="40" r="3" fill="#FFFFFF"/></svg>`,
+                
+                // Farmácia
+                'remédio': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="35" y="25" width="30" height="50" rx="15" fill="#FFFFFF"/><rect x="45" y="35" width="10" height="30" fill="#FF0000"/><rect x="35" y="45" width="30" height="10" fill="#FF0000"/></svg>`,
+                'poção': `<svg viewBox="0 0 100 100" class="w-16 h-16"><path d="M40 80 L60 80 L65 40 L35 40 Z" fill="#FFFACD"/><path d="M37 42 L63 42 L61 75 L39 75 Z" fill="#9370DB"/><rect x="45" y="25" width="10" height="20" fill="#8B4513"/><ellipse cx="50" cy="22" rx="6" ry="3" fill="#8B4513"/></svg>`,
+                
+                // Joalheria
+                'anel': `<svg viewBox="0 0 100 100" class="w-16 h-16"><ellipse cx="50" cy="60" rx="20" ry="8" fill="#FFD700"/><ellipse cx="50" cy="55" rx="18" ry="6" fill="#FFA500"/><circle cx="50" cy="40" r="8" fill="#FF69B4"/><circle cx="50" cy="40" r="5" fill="#FFFFFF"/></svg>`,
+                
+                // Banco
+                'moeda': `<svg viewBox="0 0 100 100" class="w-16 h-16"><circle cx="50" cy="50" r="25" fill="#FFD700"/><circle cx="50" cy="50" r="20" fill="#FFA500"/><text x="50" y="55" text-anchor="middle" fill="#8B4513" font-size="16" font-weight="bold">CM</text></svg>`,
+                
+                // Sex Shop
+                'produto': `<svg viewBox="0 0 100 100" class="w-16 h-16"><rect x="30" y="30" width="40" height="40" rx="10" fill="#FF69B4"/><circle cx="50" cy="50" r="15" fill="#FFB6C1"/><text x="50" y="55" text-anchor="middle" fill="#8B008B" font-size="20">❤</text></svg>`
+            };
+            
+            // Determinar qual imagem usar baseada no nome do produto
+            let imageKey = 'produto'; // padrão
+            
+            if (productName.toLowerCase().includes('pizza')) imageKey = 'pizza';
+            else if (productName.toLowerCase().includes('sorvete') || productName.toLowerCase().includes('gelato')) imageKey = 'sorvete';
+            else if (productName.toLowerCase().includes('shake') || productName.toLowerCase().includes('milk')) imageKey = 'shake';
+            else if (productName.toLowerCase().includes('açaí')) imageKey = 'açaí';
+            else if (productName.toLowerCase().includes('café') || productName.toLowerCase().includes('cappuccino') || productName.toLowerCase().includes('latte')) imageKey = 'café';
+            else if (productName.toLowerCase().includes('chá')) imageKey = 'chá';
+            else if (productName.toLowerCase().includes('bolo') || productName.toLowerCase().includes('croissant') || productName.toLowerCase().includes('biscoito')) imageKey = 'bolo';
+            else if (productName.toLowerCase().includes('bibimbap') || productName.toLowerCase().includes('galbi') || productName.toLowerCase().includes('tteokbokki')) imageKey = 'prato';
+            else if (productName.toLowerCase().includes('sopa') || productName.toLowerCase().includes('sundubu') || productName.toLowerCase().includes('samgyetang')) imageKey = 'sopa';
+            else if (productName.toLowerCase().includes('cerveja') || productName.toLowerCase().includes('beer')) imageKey = 'cerveja';
+            else if (productName.toLowerCase().includes('soju') || productName.toLowerCase().includes('licor') || productName.toLowerCase().includes('elixir') || productName.toLowerCase().includes('makgeolli')) imageKey = 'bebida';
+            else if (productName.toLowerCase().includes('leite')) imageKey = 'leite';
+            else if (productName.toLowerCase().includes('queijo')) imageKey = 'queijo';
+            else if (productName.toLowerCase().includes('elixir') || productName.toLowerCase().includes('poção') || productName.toLowerCase().includes('essência')) imageKey = 'poção';
+            else if (productName.toLowerCase().includes('remédio') || productName.toLowerCase().includes('gel') || productName.toLowerCase().includes('creme') || productName.toLowerCase().includes('máscara')) imageKey = 'remédio';
+            else if (productName.toLowerCase().includes('anel')) imageKey = 'anel';
+            else if (storeName === 'banco') imageKey = 'moeda';
+            
+            return imageMap[imageKey] || imageMap['produto'];
+        }
+
+        function showStore(storeName) {
+            currentStore = storeName;
+            hideAllScreens();
+            document.getElementById('storeView').classList.remove('hidden');
+            
+            const storeNames = {
+                pizzarriba: '🍕 Pizzarriba - Pizzas Mágicas',
+                sorveteria: '🍦 Sorveteria - Gelatos Encantados',
+                cafeteria: '☕ Cafeteria - Elixires Quentes',
+                restaurante: '🍽️ Restaurante - Banquetes Reais',
+                bar: '🍺 Taverna - Poções & Bebidas',
+                campina: '🥛 Campina - Laticínios Puros',
+                farmacia: '💊 Alquimista - Poções de Cura',
+                joalheria: '💎 Joalheria - Artefatos Mágicos',
+                banco: '🏦 Banco - Cofres Encantados',
+                sexshop: '🔞 Loja Íntima - Prazeres Secretos'
+            };
+            
+            document.getElementById('storeName').textContent = storeNames[storeName];
+            
+            const menuDiv = document.getElementById('storeMenu');
+            menuDiv.innerHTML = '';
+            
+            storeMenus[storeName].forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'product-item p-4 rounded-xl mb-3';
+                
+                const productImage = generateProductImage(item.name, storeName);
+                const effectBadge = item.effect ? `<span class="inline-block bg-purple-500 text-white text-xs px-2 py-1 rounded-full ml-2">✨ Mágico</span>` : '';
+                
+                itemDiv.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            ${productImage}
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="title-font font-semibold text-white text-lg mb-1">${item.name}${effectBadge}</h4>
+                            ${item.description ? `<p class="text-purple-200 text-sm mb-2 leading-relaxed">${item.description}</p>` : ''}
+                            <div class="flex justify-between items-center">
+                                <p class="text-yellow-400 font-bold text-lg">${item.price} CM</p>
+                                <button onclick="addToCart(${index})" class="magical-button text-white px-6 py-2 rounded-lg font-semibold">
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                menuDiv.appendChild(itemDiv);
+            });
+            
+            cart = [];
+            updateCart();
+        }
+
+        function addToCart(itemIndex) {
+            const item = storeMenus[currentStore][itemIndex];
+            const existingItem = cart.find(cartItem => cartItem.name === item.name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartDiv = document.getElementById('cart');
+            const cartItemsDiv = document.getElementById('cartItems');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartDiv.classList.add('hidden');
+                return;
+            }
+            
+            cartDiv.classList.remove('hidden');
+            cartItemsDiv.innerHTML = '';
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex justify-between items-center py-3 px-3 bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-lg border border-purple-500/30';
+                itemDiv.innerHTML = `
+                    <div class="flex-1">
+                        <span class="text-white font-medium">${item.name}</span>
+                        <span class="text-purple-300 ml-2">x${item.quantity}</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-yellow-400 font-bold">${itemTotal} CM</span>
+                        <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-300 hover:bg-red-900/30 w-6 h-6 rounded-full flex items-center justify-center transition-all">
+                            ✕
+                        </button>
+                    </div>
+                `;
+                cartItemsDiv.appendChild(itemDiv);
+            });
+            
+            cartTotalSpan.textContent = `${total} CM`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            if (users[currentUser].balance < total) {
+                alert('Saldo insuficiente!');
+                return;
+            }
+            
+            // Deduzir do saldo do usuário
+            users[currentUser].balance -= total;
+            
+            // Adicionar ao saldo da loja
+            stores[currentStore].balance += total;
+            
+            // Criar pedido
+            const order = {
+                id: Date.now(),
+                customer: currentUser,
+                store: currentStore,
+                items: [...cart],
+                total: total,
+                status: 'pendente',
+                timestamp: new Date().toLocaleString('pt-BR')
+            };
+            
+            orders.push(order);
+            
+            saveData();
+            saveStoreData();
+            
+            alert('Pedido realizado com sucesso!');
+            cart = [];
+            updateCart();
+        }
+
+        function showStoreLogin() {
+            hideAllScreens();
+            document.getElementById('storeLogin').classList.remove('hidden');
+        }
+
+        function storeLogin() {
+            const username = document.getElementById('storeUsername').value.trim();
+            
+            if (username !== currentStore) {
+                alert('Nome do estabelecimento incorreto');
+                return;
+            }
+            
+            if (!stores[username]) {
+                alert('Estabelecimento não encontrado');
+                return;
+            }
+            
+            showStorePanel();
+        }
+
+        function showStorePanel() {
+            hideAllScreens();
+            document.getElementById('storePanel').classList.remove('hidden');
+            
+            const storeNames = {
+                pizzarriba: '🍕 Pizzarriba',
+                sorveteria: '🍦 Sorveteria',
+                cafeteria: '☕ Cafeteria',
+                restaurante: '🍽️ Restaurante',
+                bar: '🍺 Bar',
+                campina: '🥛 Campina',
+                farmacia: '💊 Farmácia',
+                joalheria: '💎 Joalheria',
+                banco: '🏦 Banco',
+                sexshop: '🔞 Sex Shop'
+            };
+            
+            document.getElementById('storePanelName').textContent = `Painel - ${storeNames[currentStore]}`;
+            
+            updateStoreOrders();
+        }
+
+        function updateStoreOrders() {
+            const storeOrders = orders.filter(order => order.store === currentStore && order.status === 'pendente');
+            document.getElementById('pendingOrdersCount').textContent = storeOrders.length;
+            
+            const ordersListDiv = document.getElementById('ordersList');
+            ordersListDiv.innerHTML = '';
+            
+            storeOrders.forEach(order => {
+                const orderDiv = document.createElement('div');
+                orderDiv.className = 'bg-yellow-50 border border-yellow-200 rounded-xl p-4';
+                
+                const itemsList = order.items.map(item => `${item.name} x${item.quantity}`).join(', ');
+                
+                orderDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Pedido #${order.id}</h4>
+                            <p class="text-gray-600">Cliente: ${order.customer}</p>
+                            <p class="text-gray-600">${order.timestamp}</p>
+                        </div>
+                        <span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${order.total} CM
+                        </span>
+                    </div>
+                    <p class="text-gray-700 mb-3">${itemsList}</p>
+                    <div class="flex gap-2">
+                        <button onclick="confirmOrder(${order.id})" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                            Confirmar
+                        </button>
+                        <button onclick="completeOrder(${order.id})" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                            Pronto
+                        </button>
+                    </div>
+                `;
+                
+                ordersListDiv.appendChild(orderDiv);
+            });
+        }
+
+        function confirmOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'confirmado';
+                saveStoreData();
+                updateStoreOrders();
+                alert('Pedido confirmado!');
+            }
+        }
+
+        function completeOrder(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'pronto';
+                
+                // Adicionar itens ao inventário do cliente
+                const foodStores = ['pizzarriba', 'sorveteria', 'cafeteria', 'restaurante', 'bar', 'campina'];
+                const medicineStores = ['farmacia'];
+                
+                if (foodStores.includes(order.store) || medicineStores.includes(order.store)) {
+                    if (!lifeSystem[order.customer]) {
+                        initLifeSystem(order.customer);
+                    }
+                    
+                    order.items.forEach(item => {
+                        for (let i = 0; i < item.quantity; i++) {
+                            // Encontrar o item original no menu para pegar o efeito
+                            const originalItem = storeMenus[order.store].find(menuItem => menuItem.name === item.name);
+                            
+                            lifeSystem[order.customer].inventory.push({
+                                name: item.name,
+                                type: foodStores.includes(order.store) ? 'food' : 'medicine',
+                                store: order.store,
+                                effect: originalItem ? originalItem.effect : null,
+                                timestamp: Date.now()
+                            });
+                        }
+                    });
+                    
+                    saveLifeData();
+                }
+                
+                saveStoreData();
+                updateStoreOrders();
+                alert('Pedido marcado como pronto!');
+            }
+        }
+
+        function updateOrderHistory() {
+            const userOrders = orders.filter(order => order.customer === currentUser);
+            const historyListDiv = document.getElementById('historyList');
+            historyListDiv.innerHTML = '';
+            
+            if (userOrders.length === 0) {
+                historyListDiv.innerHTML = '<p class="text-gray-500 text-center py-8">Nenhum pedido encontrado</p>';
+                return;
+            }
+            
+            userOrders.reverse().forEach(order => {
+                const orderDiv = document.createElement('div');
+                let statusColor = 'bg-yellow-100 border-yellow-200 text-yellow-800';
+                let statusText = 'Pendente';
+                
+                if (order.status === 'confirmado') {
+                    statusColor = 'bg-blue-100 border-blue-200 text-blue-800';
+                    statusText = 'Confirmado';
+                } else if (order.status === 'pronto') {
+                    statusColor = 'bg-green-100 border-green-200 text-green-800';
+                    statusText = 'Pronto! ✅';
+                }
+                
+                orderDiv.className = `${statusColor} border rounded-xl p-4 mb-4`;
+                
+                const storeNames = {
+                    pizzarriba: '🍕 Pizzarriba',
+                    sorveteria: '🍦 Sorveteria',
+                    cafeteria: '☕ Cafeteria',
+                    restaurante: '🍽️ Restaurante',
+                    bar: '🍺 Bar',
+                    campina: '🥛 Campina',
+                    farmacia: '💊 Farmácia',
+                    joalheria: '💎 Joalheria',
+                    banco: '🏦 Banco',
+                    sexshop: '🔞 Sex Shop'
+                };
+                
+                const itemsList = order.items.map(item => `${item.name} x${item.quantity}`).join(', ');
+                
+                orderDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold">${storeNames[order.store]}</h4>
+                        <span class="font-bold">${order.total} CM</span>
+                    </div>
+                    <p class="text-sm mb-2">${itemsList}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs">${order.timestamp}</span>
+                        <span class="px-2 py-1 rounded-full text-xs font-semibold">${statusText}</span>
+                    </div>
+                `;
+                
+                historyListDiv.appendChild(orderDiv);
+            });
+        }
+
+        // Funções do sistema de vida
+        function showLifeStatus() {
+            hideAllScreens();
+            document.getElementById('lifeStatus').classList.remove('hidden');
+            updateLifeStatus();
+            updateInventory();
+        }
+
+        function showHospital() {
+            hideAllScreens();
+            document.getElementById('hospital').classList.remove('hidden');
+        }
+
+        function showHospitalLogin() {
+            hideAllScreens();
+            document.getElementById('hospitalLogin').classList.remove('hidden');
+        }
+
+        function updateLifeStatus() {
+            if (!currentUser || !lifeSystem[currentUser]) return;
+            
+            const userLife = lifeSystem[currentUser];
+            const now = Date.now();
+            
+            // Calcular fome (diminui ao longo de 48 horas)
+            const timeSinceLastFed = now - userLife.lastFed;
+            const maxHungerTime = 48 * 60 * 60 * 1000; // 48 horas em ms
+            userLife.hunger = Math.max(0, 100 - (timeSinceLastFed / maxHungerTime) * 100);
+            
+            // Verificar doenças aleatórias
+            checkRandomDiseases();
+            
+            // Atualizar interface
+            updateLifeDisplay();
+            generateSuggestions();
+            
+            saveLifeData();
+        }
+
+        function checkRandomDiseases() {
+            if (!currentUser || !lifeSystem[currentUser]) return;
+            
+            const userLife = lifeSystem[currentUser];
+            const now = Date.now();
+            const daysSinceLastCheck = (now - userLife.lastDiseaseCheck) / (24 * 60 * 60 * 1000);
+            
+            if (daysSinceLastCheck >= 5 && Math.random() < 0.3) {
+                const diseases = ['Gripe', 'Dor de cabeça', 'Enjoo', 'Diarreia', 'Febre'];
+                const randomDisease = diseases[Math.floor(Math.random() * diseases.length)];
+                
+                if (!userLife.diseases.includes(randomDisease)) {
+                    userLife.diseases.push(randomDisease);
+                    userLife.health = Math.max(20, userLife.health - 30);
+                    userLife.lastDiseaseCheck = now;
+                    alert(`Seu personagem ficou com ${randomDisease}! Procure tratamento no hospital.`);
+                }
+            }
+        }
+
+        function updateLifeDisplay() {
+            if (!currentUser || !lifeSystem[currentUser]) return;
+            
+            const userLife = lifeSystem[currentUser];
+            
+            // Atualizar barras
+            document.getElementById('hungerBar').style.width = `${userLife.hunger}%`;
+            document.getElementById('hungerPercent').textContent = `${Math.round(userLife.hunger)}%`;
+            
+            document.getElementById('moodBar').style.width = `${userLife.mood}%`;
+            document.getElementById('moodText').textContent = getMoodText(userLife.mood);
+            
+            document.getElementById('healthBar').style.width = `${userLife.health}%`;
+            document.getElementById('healthText').textContent = getHealthText(userLife.health, userLife.diseases);
+            
+            // Atualizar cores das barras
+            const hungerBar = document.getElementById('hungerBar');
+            if (userLife.hunger > 60) hungerBar.className = 'bg-green-500 h-3 rounded-full transition-all duration-300';
+            else if (userLife.hunger > 30) hungerBar.className = 'bg-yellow-500 h-3 rounded-full transition-all duration-300';
+            else hungerBar.className = 'bg-red-500 h-3 rounded-full transition-all duration-300';
+            
+            // Status do personagem
+            let status = 'Seu personagem está se sentindo bem!';
+            if (userLife.hunger < 30) status = 'Seu personagem está com muita fome!';
+            else if (userLife.hunger < 60) status = 'Seu personagem está começando a sentir fome.';
+            
+            if (userLife.diseases.length > 0) {
+                status = `Seu personagem está doente: ${userLife.diseases.join(', ')}`;
+            }
+            
+            document.getElementById('characterStatus').textContent = status;
+        }
+
+        function getMoodText(mood) {
+            if (mood > 80) return 'Muito Feliz';
+            if (mood > 60) return 'Feliz';
+            if (mood > 40) return 'Normal';
+            if (mood > 20) return 'Triste';
+            return 'Muito Triste';
+        }
+
+        function getHealthText(health, diseases) {
+            if (diseases.length > 0) return `Doente (${diseases.join(', ')})`;
+            if (health > 80) return 'Saudável';
+            if (health > 60) return 'Bem';
+            if (health > 40) return 'Cansado';
+            return 'Muito Mal';
+        }
+
+        function generateSuggestions() {
+            if (!currentUser || !lifeSystem[currentUser]) return;
+            
+            const userLife = lifeSystem[currentUser];
+            const suggestionsDiv = document.getElementById('suggestions');
+            const suggestionText = document.getElementById('suggestionText');
+            
+            const hungerSuggestions = [
+                'Seu personagem está com fome! Que tal pedir uma pizza?',
+                'Sua barriga está roncando! Um prato feito seria perfeito agora.',
+                'Você está sentindo uma fome danada! Vá à cafeteria tomar um café.',
+                'Que tal um lanche? Seu personagem precisa de energia!',
+                'Está na hora de comer algo! Um sorvete pode quebrar o galho.',
+                'Seu estômago está pedindo comida! Que tal ir ao restaurante?',
+                'Você está morrendo de fome! Uma pizza cairia bem agora.',
+                'Precisa se alimentar urgente! Vá ao bar comer um petisco.',
+                'Sua energia está baixa! Compre algo na Campina.',
+                'Que fome terrível! Peça algo gostoso para comer.'
+            ];
+            
+            const moodSuggestions = [
+                'Você está meio tristinho hoje... Um sorvete pode animar!',
+                'Seu humor não está dos melhores. Que tal uma caipirinha?',
+                'Você parece desanimado. Um doce pode alegrar seu dia!',
+                'Está se sentindo pra baixo? Uma pizza com amigos ajuda!',
+                'Seu personagem está melancólico. Vá tomar um café!',
+                'Você está meio cabisbaixo. Um açaí pode levantar o astral!',
+                'Parece que você acordou com o pé esquerdo. Que tal um milkshake?',
+                'Seu humor está nas alturas negativas. Precisa de algo doce!',
+                'Você está sentindo um vazio... Talvez seja fome de carinho e comida!',
+                'Está meio down hoje? Um cappuccino pode ajudar!',
+                'Seu personagem está precisando de mimo. Compre algo gostoso!',
+                'Você está com cara de poucos amigos. Hora de se mimar!',
+                'Parece que você está carente. Um sorvete resolve tudo!',
+                'Seu astral está baixo. Que tal se presentear com algo?',
+                'Você está meio apático. Precisa de açúcar no sangue!'
+            ];
+            
+            const healthSuggestions = [
+                'Você está doente! Vá ao hospital se tratar imediatamente!',
+                'Sua saúde não está boa. Procure ajuda médica!',
+                'Você está se sentindo mal. O hospital pode te ajudar!',
+                'Precisa de cuidados médicos urgente! Vá ao hospital!',
+                'Sua condição está preocupante. Busque tratamento!',
+                'Você não está bem. É hora de procurar um médico!',
+                'Está sentindo dores? O hospital tem a solução!',
+                'Seu corpo está pedindo socorro. Vá se tratar!',
+                'Você está debilitado. Precisa de atendimento médico!',
+                'Sua saúde está em risco. Não deixe para depois!'
+            ];
+            
+            const generalSuggestions = [
+                'Você está radiante hoje! Continue assim!',
+                'Seu personagem está se sentindo incrível!',
+                'Que energia boa! Você está no seu melhor momento!',
+                'Você está brilhando hoje! Aproveite esse momento!',
+                'Seu personagem está cheio de vida e alegria!',
+                'Você está com uma aura muito positiva hoje!',
+                'Que vibe maravilhosa! Continue nesse ritmo!',
+                'Seu personagem está irradiando felicidade!',
+                'Você está com uma energia contagiante!',
+                'Que dia perfeito para você! Está tudo fluindo bem!',
+                'Você está se sentindo poderoso hoje!',
+                'Seu personagem está em harmonia total!',
+                'Que paz interior! Você está equilibrado!',
+                'Você está vivendo seu melhor momento!',
+                'Seu personagem está cheio de esperança e alegria!'
+            ];
+            
+            let suggestion = '';
+            
+            if (userLife.diseases.length > 0) {
+                suggestion = healthSuggestions[Math.floor(Math.random() * healthSuggestions.length)];
+            } else if (userLife.hunger < 50) {
+                suggestion = hungerSuggestions[Math.floor(Math.random() * hungerSuggestions.length)];
+            } else if (userLife.mood < 50) {
+                suggestion = moodSuggestions[Math.floor(Math.random() * moodSuggestions.length)];
+            } else if (Math.random() < 0.3) {
+                suggestion = generalSuggestions[Math.floor(Math.random() * generalSuggestions.length)];
+            }
+            
+            if (suggestion) {
+                suggestionText.textContent = suggestion;
+                suggestionsDiv.classList.remove('hidden');
+            } else {
+                suggestionsDiv.classList.add('hidden');
+            }
+        }
+
+        function updateInventory() {
+            if (!currentUser || !lifeSystem[currentUser]) return;
+            
+            const inventory = lifeSystem[currentUser].inventory;
+            const inventoryDiv = document.getElementById('inventory');
+            inventoryDiv.innerHTML = '';
+            
+            if (inventory.length === 0) {
+                inventoryDiv.innerHTML = '<p class="text-gray-500 col-span-2 text-center py-4">Sua bolsa está vazia</p>';
+                return;
+            }
+            
+            inventory.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'bg-gray-50 rounded-xl p-3 cursor-pointer hover:bg-gray-100 transition-colors';
+                itemDiv.onclick = () => useItem(index);
+                
+                const emoji = item.type === 'food' ? '🍽️' : '💊';
+                itemDiv.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-2xl mb-1">${emoji}</div>
+                        <div class="text-sm font-semibold text-gray-800">${item.name}</div>
+                        <div class="text-xs text-gray-500">Clique para usar</div>
+                    </div>
+                `;
+                
+                inventoryDiv.appendChild(itemDiv);
+            });
+        }
+
+        function useItem(itemIndex) {
+            if (!currentUser || !lifeSystem[currentUser]) return;
+            
+            const userLife = lifeSystem[currentUser];
+            const item = userLife.inventory[itemIndex];
+            
+            if (item.type === 'food') {
+                // Aumentar fome e humor
+                userLife.hunger = Math.min(100, userLife.hunger + 20);
+                userLife.mood = Math.min(100, userLife.mood + 10);
+                userLife.lastFed = Date.now();
+                
+                // Aplicar efeitos especiais baseados no item
+                if (item.effect) {
+                    applyItemEffect(item.effect, userLife);
+                }
+                
+                alert(`Você consumiu ${item.name}! Fome e humor aumentaram.`);
+            } else if (item.type === 'medicine') {
+                // Curar doenças e aumentar saúde
+                userLife.diseases = [];
+                userLife.health = Math.min(100, userLife.health + 30);
+                
+                // Aplicar efeitos especiais baseados no item
+                if (item.effect) {
+                    applyItemEffect(item.effect, userLife);
+                }
+                
+                alert(`Você usou ${item.name}! Saúde melhorou e doenças foram curadas.`);
+            }
+            
+            // Remover item do inventário
+            userLife.inventory.splice(itemIndex, 1);
+            
+            saveLifeData();
+            updateLifeStatus();
+            updateInventory();
+        }
+
+        function applyItemEffect(effect, userLife) {
+            const effectBonus = {
+                'energy': { mood: 15, health: 5 },
+                'happiness': { mood: 20 },
+                'joy': { mood: 25 },
+                'magic': { mood: 15, health: 10 },
+                'serenity': { mood: 18 },
+                'wonder': { mood: 22 },
+                'refresh': { mood: 12, health: 8 },
+                'bliss': { mood: 30 },
+                'harmony': { mood: 20, health: 5 },
+                'warmth': { mood: 15 },
+                'courage': { mood: 18, health: 5 },
+                'strength': { mood: 12, health: 15 },
+                'awakening': { mood: 10, health: 10 },
+                'comfort': { mood: 25 },
+                'vitality': { mood: 15, health: 20 },
+                'fire': { mood: 10, health: 5 },
+                'sweetness': { mood: 20 },
+                'dreams': { mood: 15 },
+                'mystery': { mood: 12 },
+                'calm': { mood: 18 },
+                'earthiness': { mood: 10 },
+                'mysticism': { mood: 15 },
+                'contemplation': { mood: 12 },
+                'power': { mood: 15, health: 10 },
+                'intensity': { mood: 8, health: 5 },
+                'lightness': { mood: 20 },
+                'freedom': { mood: 25 },
+                'relaxation': { mood: 22 },
+                'peace': { mood: 28 },
+                'wishes': { mood: 30 },
+                'health': { health: 15, mood: 10 },
+                'satisfaction': { mood: 18 },
+                'romance': { mood: 25 },
+                'love': { mood: 30 },
+                'enchantment': { mood: 20 },
+                'passion': { mood: 28 },
+                'destiny': { mood: 22 },
+                'bond': { mood: 25 },
+                'unity': { mood: 30 },
+                'connection': { mood: 35 },
+                'eternity': { mood: 40 },
+                'convenience': { mood: 10 },
+                'opportunity': { mood: 15 },
+                'prosperity': { mood: 20 }
+            };
+            
+            const bonus = effectBonus[effect];
+            if (bonus) {
+                if (bonus.mood) {
+                    userLife.mood = Math.min(100, userLife.mood + bonus.mood);
+                }
+                if (bonus.health) {
+                    userLife.health = Math.min(100, userLife.health + bonus.health);
+                }
+            }
+        }
+
+        function requestTreatment(type) {
+            const cost = type === 'consulta' ? 50 : 100;
+            
+            if (users[currentUser].balance < cost) {
+                alert('Saldo insuficiente para o tratamento!');
+                return;
+            }
+            
+            users[currentUser].balance -= cost;
+            
+            const request = {
+                id: Date.now(),
+                patient: currentUser,
+                type: type,
+                cost: cost,
+                status: 'aguardando',
+                timestamp: new Date().toLocaleString('pt-BR')
+            };
+            
+            hospitalRequests.push(request);
+            
+            saveData();
+            saveLifeData();
+            
+            alert('Solicitação de tratamento enviada! Aguarde o atendimento médico.');
+        }
+
+        function hospitalLogin() {
+            const username = document.getElementById('hospitalUsername').value.trim();
+            
+            if (username !== 'hospital') {
+                alert('Usuário incorreto');
+                return;
+            }
+            
+            showHospitalPanel();
+        }
+
+        function showHospitalPanel() {
+            hideAllScreens();
+            document.getElementById('hospitalPanel').classList.remove('hidden');
+            updateHospitalPanel();
+        }
+
+        function updateHospitalPanel() {
+            const waitingRequests = hospitalRequests.filter(req => req.status === 'aguardando');
+            document.getElementById('waitingPatientsCount').textContent = waitingRequests.length;
+            
+            const patientsListDiv = document.getElementById('patientsList');
+            patientsListDiv.innerHTML = '';
+            
+            waitingRequests.forEach(request => {
+                const requestDiv = document.createElement('div');
+                requestDiv.className = 'bg-red-50 border border-red-200 rounded-xl p-4';
+                
+                requestDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Paciente: ${request.patient}</h4>
+                            <p class="text-gray-600">Tipo: ${request.type}</p>
+                            <p class="text-gray-600">${request.timestamp}</p>
+                        </div>
+                        <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${request.cost} CM
+                        </span>
+                    </div>
+                    <button onclick="treatPatient(${request.id})" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        Tratar Paciente
+                    </button>
+                `;
+                
+                patientsListDiv.appendChild(requestDiv);
+            });
+        }
+
+        function treatPatient(requestId) {
+            const request = hospitalRequests.find(req => req.id === requestId);
+            if (request) {
+                request.status = 'tratado';
+                
+                // Curar o paciente
+                if (lifeSystem[request.patient]) {
+                    lifeSystem[request.patient].health = 100;
+                    lifeSystem[request.patient].diseases = [];
+                    lifeSystem[request.patient].mood = Math.min(100, lifeSystem[request.patient].mood + 20);
+                }
+                
+                saveLifeData();
+                updateHospitalPanel();
+                alert(`Paciente ${request.patient} foi tratado com sucesso!`);
+            }
+        }
+
+        // Funções do sistema de gravidez
+        function showPregnancy() {
+            hideAllScreens();
+            document.getElementById('pregnancy').classList.remove('hidden');
+            updatePregnancyStatus();
+        }
+
+        function setPregnancy(weeks) {
+            if (!pregnancySystem[currentUser]) {
+                pregnancySystem[currentUser] = {};
+            }
+            
+            const isGemeos = Math.random() < 0.15; // 15% chance de gêmeos
+            
+            pregnancySystem[currentUser] = {
+                weeks: weeks,
+                startTime: Date.now(),
+                gemeos: isGemeos,
+                active: true
+            };
+            
+            saveLifeData();
+            updatePregnancyStatus();
+            
+            const message = isGemeos ? 
+                `Parabéns! Você descobriu que está grávida de gêmeos há ${Math.floor(weeks/4)} mês(es)!` :
+                `Parabéns! Você descobriu que está grávida há ${Math.floor(weeks/4)} mês(es)!`;
+            
+            alert(message);
+        }
+
+        function updatePregnancyStatus() {
+            if (!currentUser) return;
+            
+            const pregnancy = pregnancySystem[currentUser];
+            const statusText = document.getElementById('pregnancyStatusText');
+            
+            if (!pregnancy || !pregnancy.active) {
+                statusText.textContent = 'Não grávida';
+                return;
+            }
+            
+            // Calcular progresso (1 mês RPG = 1 semana real)
+            const realTimeElapsed = Date.now() - pregnancy.startTime;
+            const weeksElapsed = realTimeElapsed / (7 * 24 * 60 * 60 * 1000); // semanas reais
+            const currentWeeks = pregnancy.weeks + Math.floor(weeksElapsed * 4); // 4 semanas RPG por semana real
+            
+            // Verificar se a bolsa estourou (entre 28-40 semanas)
+            if (currentWeeks >= 28 && Math.random() < 0.1) {
+                giveBirth();
+                return;
+            }
+            
+            const months = Math.floor(currentWeeks / 4);
+            const gemeosText = pregnancy.gemeos ? ' (gêmeos)' : '';
+            
+            statusText.textContent = `Grávida de ${months} mês(es)${gemeosText} - ${currentWeeks} semanas`;
+        }
+
+        function giveBirth() {
+            const pregnancy = pregnancySystem[currentUser];
+            if (!pregnancy) return;
+            
+            const babies = pregnancy.gemeos ? 2 : 1;
+            const message = babies === 2 ? 
+                'Parabéns! Seus gêmeos nasceram!' : 
+                'Parabéns! Seu bebê nasceu!';
+            
+            alert(message);
+            
+            // Resetar gravidez
+            pregnancySystem[currentUser].active = false;
+            saveLifeData();
+            updatePregnancyStatus();
+        }
+
+        // Funções do sistema de adoção
+        function showAdoption() {
+            hideAllScreens();
+            document.getElementById('adoption').classList.remove('hidden');
+        }
+
+        function showAdoptionLogin() {
+            hideAllScreens();
+            document.getElementById('adoptionLogin').classList.remove('hidden');
+        }
+
+        function requestAdoption(gender) {
+            const request = {
+                id: Date.now(),
+                requester: currentUser,
+                gender: gender,
+                status: 'pendente',
+                timestamp: new Date().toLocaleString('pt-BR')
+            };
+            
+            adoptionRequests.push(request);
+            saveLifeData();
+            
+            alert(`Solicitação de adoção de ${gender} enviada! Aguarde o contato da equipe.`);
+        }
+
+        function adoptionLogin() {
+            const username = document.getElementById('adoptionUsername').value.trim();
+            
+            if (username !== 'adocao') {
+                alert('Usuário incorreto');
+                return;
+            }
+            
+            showAdoptionPanel();
+        }
+
+        function showAdoptionPanel() {
+            hideAllScreens();
+            document.getElementById('adoptionPanel').classList.remove('hidden');
+            updateAdoptionPanel();
+        }
+
+        function updateAdoptionPanel() {
+            const pendingRequests = adoptionRequests.filter(req => req.status === 'pendente');
+            document.getElementById('adoptionRequestsCount').textContent = pendingRequests.length;
+            
+            const requestsListDiv = document.getElementById('adoptionRequestsList');
+            requestsListDiv.innerHTML = '';
+            
+            pendingRequests.forEach(request => {
+                const requestDiv = document.createElement('div');
+                requestDiv.className = 'bg-orange-50 border border-orange-200 rounded-xl p-4';
+                
+                requestDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Solicitante: ${request.requester}</h4>
+                            <p class="text-gray-600">Deseja adotar: ${request.gender}</p>
+                            <p class="text-gray-600">${request.timestamp}</p>
+                        </div>
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${request.gender === 'menino' ? '👦' : '👧'}
+                        </span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="approveAdoption(${request.id})" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                            Aprovar
+                        </button>
+                        <button onclick="rejectAdoption(${request.id})" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                            Rejeitar
+                        </button>
+                    </div>
+                `;
+                
+                requestsListDiv.appendChild(requestDiv);
+            });
+        }
+
+        function approveAdoption(requestId) {
+            const request = adoptionRequests.find(req => req.id === requestId);
+            if (request) {
+                request.status = 'aprovado';
+                saveLifeData();
+                updateAdoptionPanel();
+                alert(`Adoção de ${request.gender} para ${request.requester} foi aprovada!`);
+            }
+        }
+
+        function rejectAdoption(requestId) {
+            const request = adoptionRequests.find(req => req.id === requestId);
+            if (request) {
+                request.status = 'rejeitado';
+                saveLifeData();
+                updateAdoptionPanel();
+                alert(`Adoção rejeitada.`);
+            }
+        }
+
+        // Inicializar sistemas
+        if (!stores['hospital']) {
+            stores['hospital'] = { balance: 0 };
+        }
+        if (!stores['adocao']) {
+            stores['adocao'] = { balance: 0 };
+        }
+        saveStoreData();
+
+        // Atualizar status de vida periodicamente
+        setInterval(() => {
+            if (currentUser) {
+                updateLifeStatus();
+                updatePregnancyStatus();
+            }
+        }, 60000); // A cada minuto
+
+        // Inicializar
+        showHome();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c223f8d4616f86',t:'MTc1NDY4ODg5NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
